@@ -1,3 +1,4 @@
+// -------------------------------------------------------------------------------- VARIABLES
 const colors = {
   one: "#fef3bd",
   two: "#ffd6a5"
@@ -9,6 +10,24 @@ const notes = [
 ];
 
 const usedCoords = new Set();
+
+// -------------------------------------------------------------------------------- FIREBASE
+main.js
+import { db } from "./firebase.js";
+import { doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+// Upload array
+await setDoc(doc(db, "data", "arrayDoc"), { values: notes });
+
+// Listen for real-time updates
+onSnapshot(doc(db, "data", "arrayDoc"), (docSnap) => {
+  if (docSnap.exists()) {
+    const arr = docSnap.data().values;
+    console.log("Array:", arr);
+    // your existing logic here
+  }
+});
+
 
 // -------------------------------------------------------------------------------- RENDER NOTES
 function renderNotes() {
