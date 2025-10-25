@@ -1,15 +1,19 @@
 :root {
-
+    --primary-color: #53599A;
+    --secondary-color: #6D9DC5;
+    --accent-color1: #068D9D;
+    --accent-color2: #80DED9;
+    --passive-color: #AEECEF;
 }
 
 /* Global */
-
-
-
+html {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
 
 /* Header */
 header {
-    background-color: black;
+    background-color: var(--primary-color);
     font-weight: bold;
 }
 header ul {
@@ -25,13 +29,17 @@ header ul li {
 header a {
     text-decoration: none;
     color:white;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Body */
+body {
+    background-color: var(--passive-color);
 }
 
 /* Footer */
 footer {
     margin-top: 100px; /*Please Remove this later!*/
-    background-color: black;
+    background-color: var(--primary-color);
     font-weight: bold;
     color: white;
     padding: 50px;
