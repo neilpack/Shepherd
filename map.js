@@ -26,7 +26,7 @@ const pinModal = document.getElementById("pinModal");
 const pinForm = document.getElementById("pinForm");
 
 // Initialize Map
-window.initMap = async function() {
+export async function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: { lat: 43.816, lng: -111.784 }
