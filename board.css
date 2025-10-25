@@ -74,14 +74,22 @@ header a:hover {
 /* THE BOARD */
 #board {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 1rem;
+    margin: 10px 10px 10px 10px;
 }
 #board section {
     border-radius: 10px;
     padding: 10px;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
+    word-wrap: break-word;       /* allow long words to break */
+    overflow-wrap: break-word;   /* modern version */
+    white-space: normal;         /* allow wrapping */
+    overflow: hidden;            /* prevent text from spilling out */
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    height: 100px;
 }
 #board section:hover {
     transition: transform 0.2s;
@@ -89,7 +97,9 @@ header a:hover {
     opacity: 90%;
     box-shadow: 2px 4px 8px rgba(57, 57, 57, 0.25);
 }
-
+.BONUS {
+    padding-top: 400px;
+}
 /* Add Note Pop up */
 #add-button-container {
     display: flex;
@@ -173,7 +183,6 @@ footer {
     max-width: 40px;
     max-height: 40px;
 }
-
 
 
 

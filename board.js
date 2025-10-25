@@ -14,6 +14,12 @@ const usedCoords = new Set();
 function renderNotes() {
     const board = document.getElementById("board");
     board.innerHTML = ""; // clear existing notes
+
+    if (notes.length === 0) {
+        board.classList.add('BONUS');
+        } else {
+        board.classList.remove('BONUS');
+        }
     
     notes.forEach((note, index) => {
         const section = document.createElement("section");
@@ -36,6 +42,7 @@ function renderNotes() {
         board.appendChild(section);
     });
 }
+
 
 // ------------------------------------------------------------------------------- MODALS
 
@@ -108,7 +115,6 @@ function getUniqueCoords() {
     } while (usedCoords.has(key));
 
     usedCoords.add(key);
-    //usedCoords.delete(`${note.x},${note.y}`) this will be used to delete thiss
     return { x, y };
 }
 
@@ -150,7 +156,6 @@ function getRandomColor() {
     const randomIndex = Math.floor(Math.random() * colorValues.length);
     return colorValues[randomIndex];
 }
-
 // ----------------------------------------------------------------------------------------- RUN
 
 renderNotes();
