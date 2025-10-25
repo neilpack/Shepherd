@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shepherd</title>
     <link rel="stylesheet" href="board.css">
-    <script src="board.js" defer></script>
+    <script type="module" src="board.js" defer></script>
      <meta name="description" content="A simple LDS ward service board to connect members and coordinate ministering.">
      <meta name="author" content="MinsterMe">
 </head>
 <body>
-<header>
     <header>
-        <ul>
-          <li><div class="nav-wrapper"><a href="board.html" >Board</a></div></li>
-          <li><div class="nav-wrapper"><a href="calendar.html" >Calendar</a></div></li>
-          <li><div class="nav-wrapper"><a href="map.html" >Map</a></div></li>
-        </ul>
-      </header>
+        <nav>
+            <ul>
+                <li><div class="nav-wrapper"><a href="board.html" >Board</a></div></li>
+                <li><div class="nav-wrapper"><a href="calendar.html" >Calendar</a></div></li>
+                <li><div class="nav-wrapper"><a href="map.html" >Map</a></div></li>
+            </ul>
+        </nav>
+    </header>
 <main>
     <!-- THE BOARD-->
     <div id="board">
@@ -29,7 +30,7 @@
     </div>
     <div class="modal-overlay" id="myModal">
     <div class="modal-content">
-        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <span class="close-btn" id="closeAddModalBtn">&times;</span>
         <h2>What do you need?</h2>
         
         <input type="text" id="noteTitle" placeholder="Subject" style="width: 80%; margin-bottom: 10px; padding: 5px;">
@@ -41,9 +42,17 @@
     </div>
     </div>
 
-
-
-
+    <!-- REMOVE NOTE MODAL -->
+    <div class="modal-overlay" id="removeModal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeRemoveModalBtn">&times;</span>
+        <h2>Remove Note?</h2>
+    
+        <button id="removeNoteBtn" style="margin-top: 15px; padding: 10px 20px; background-color: #ffd6a5; border: none; border-radius: 5px; cursor: pointer;">
+        Confirm
+        </button>
+    </div>
+    </div>
 </main>
 <footer>
     <div>
@@ -53,17 +62,17 @@
         <p>Socials</p>
     </div>
     <div id="social-links">
-        <a href="https://www.facebook.com/" target="_blank" class="social-link">
-            <img id="face" src="images/Facebook_Logo_2023.png" alt="Facebook Logo">
-            <span>Facebook</span>
+        <a href="https://www.facebook.com/"  class="social-link">
+            <img id="face" href="https://www.facebook.com"src="images/Facebook_Logo_2023.png" alt="Facebook Logo"  target="_blank">
+            <span></span>
         </a>
         <a href="https://www.instagram.com" target="_blank" class="social-link">
-            <img id="insta" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo">
-            <span>Instagram</span>
+            <img id="insta" href="https://www.instagram.com" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"  target="_blank">
+            <span></span>
         </a>
         <a href="https://www.x.com" target="_blank" class="social-link">
-            <img id="x" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo">
-            <span>X</span>
+            <img id="x" href="https://www.x.com" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"  target="_blank">
+            <span></span>
         </a>
     </div>
   </footer>

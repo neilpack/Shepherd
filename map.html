@@ -48,24 +48,29 @@
         <p>Socials</p>
     </div>
     <div id="social-links">
-        <a href="https://www.facebook.com/" target="_blank" class="social-link">
-            <img id="face" src="images/Facebook_Logo_2023.png" alt="Facebook Logo">
-            <span>Facebook</span>
+        <a href="https://www.facebook.com/"  class="social-link">
+            <img id="face" href="https://www.facebook.com"src="images/Facebook_Logo_2023.png" alt="Facebook Logo"  target="_blank">
+            <span></span>
         </a>
         <a href="https://www.instagram.com" target="_blank" class="social-link">
-            <img id="insta" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo">
-            <span>Instagram</span>
+            <img id="insta" href="https://www.instagram.com" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"  target="_blank">
+            <span></span>
         </a>
         <a href="https://www.x.com" target="_blank" class="social-link">
-            <img id="x" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo">
-            <span>X</span>
+            <img id="x" href="https://www.x.com" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"  target="_blank">
+            <span></span>
         </a>
     </div>
   </footer>
-
   <!-- Firebase + Map JS -->
-  <script type="module" src="map.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
+    <!-- Load Google Maps first -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap"
+    async
+    defer
+  ></script>
 
+  <!-- Then your Firebase + logic AFTER Maps -->
+  <script type="module" src="map.js"></script>
 </body>
 </html>
