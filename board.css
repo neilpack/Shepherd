@@ -10,6 +10,14 @@
 html {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+body {
+    background-color: var(--passive-color);
+}
+
+
+
+
+
 
 /* Header */
 header {
@@ -31,19 +39,118 @@ header a {
     color:white;
 }
 
-/* Body */
-body {
-    background-color: var(--passive-color);
+
+
+
+
+
+
+/* Main */
+
+
+/* THE BOARD */
+#board {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1rem;
 }
+#board section {
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Add Note Pop up */
+#add-button-container {
+    display: flex;
+    justify-content: right;
+    padding: 15px;
+}
+#openModalBtn {
+    background-color: #ffd6a5;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+#openModalBtn:hover {
+    transform: scale(1.1);
+}
+.modal-overlay {
+    display: none; /* hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+/* The modal content box */
+.modal-content {
+    background-color: #fef3bd;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}
+/* Close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+.close-btn:hover {
+    color: red;
+    cursor: pointer;   
+}
+
+
+
+
+
+
+
+
 
 /* Footer */
 footer {
-    margin-top: 100px; /*Please Remove this later!*/
     background-color: var(--primary-color);
     font-weight: bold;
     color: white;
     padding: 50px;
 }
+#face {
+    max-width: 25px;
+    max-height: 25px;
+}
+#x {
+    max-width: 30px;
+    max-height: 30px;
+}
+#insta {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+
+
+
+
+
 
 /* iPhone Display */
 @media (max-width: 800px) {
