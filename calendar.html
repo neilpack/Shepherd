@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanilla JS Calendar with Month Selector</title>
+<style>
+  body { 
+    font-family: Arial, sans-serif; margin:0; display:flex; height:100vh; 
+    }
+  #calendar-container { 
+    flex:2; padding:20px; 
+    }
+  #calendar-controls { 
+    margin-bottom:10px; 
+    }
+  #calendar { 
+
+  }
+
+  #sidebar { 
+    flex:1; padding:20px; border-left:2px solid #ddd; background:#f9f9f9; display:none; overflow-y:auto; 
+    }
+  .day { 
+    display:inline-block; width:40px; height:40px; line-height:40px; margin:3px; text-align:center; background:#eee; border-radius:5px; cursor:pointer; 
+    }
+  .day:hover { 
+    background:#ddd; 
+    }
+  .today { 
+    background:#a0d2f0; 
+    }
+  .placeholder { 
+    background:transparent; cursor:default; 
+    }
+  textarea { 
+    width:100%; height:150px; margin-top:10px; 
+    }
+  button { 
+    margin-top:10px; padding:5px 10px; cursor:pointer; 
+    }
+</style>
+</head>
+<body>
+
+<div id="calendar-container">
+  <div id="calendar-controls">
+    <label for="month-select">Month:</label>
+    <select id="month-select"></select>
+
+    <label for="year-select">Year:</label>
+    <select id="year-select"></select>
+  </div>
+
+  <div id="calendar"></div>
+</div>
+
+<div id="sidebar">
+  <h2 id="sidebar-title">Day Details</h2>
+  <div id="sidebar-content"><p>Select a day to view or add plans.</p></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const calendarEl = document.getElementById('calendar');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarTitle = document.getElementById('sidebar-title');
+  const sidebarContent = document.getElementById('sidebar-content');
+  const monthSelect = document.getElementById('month-select');
+  const yearSelect = document.getElementById('year-select');
+
+  // Populate months
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+  months.forEach((m,i)=>{
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = m;
+    monthSelect.appendChild(option);
+  });
+
+  // Populate years
+  for(let y=2020; y<=2030; y++){
+    const option = document.createElement('option');
+    option.value = y;
+    option.textContent = y;
+    yearSelect.appendChild(option);
+  }
+
+  // Set current month/year
+  const now = new Date();
+  monthSelect.value = now.getMonth();
+  yearSelect.value = now.getFullYear();
+
+  // Render calendar function
+  function renderCalendar(year, month){
+    const today = new Date();
+    const firstDay = new Date(year, month,1);
+    const lastDay = new Date(year, month+1,0);
+    let html = `<h3>${months[month]} ${year}</h3>`;
+
+    // Invisible placeholder days
+    for(let i=0;i<firstDay.getDay();i++) html += `<div class="day placeholder"></div>`;
+
+    // Days
+    for(let d=1; d<=lastDay.getDate(); d++){
+      const isToday = d===today.getDate() && month===today.getMonth() && year===today.getFullYear();
+      html += `<div class="day ${isToday ? 'today' : ''}" onclick="selectDate(${year},${month},${d})">${d}</div>`;
+    }
+
+    calendarEl.innerHTML = html;
+  }
+
+  window.selectDate = function(year, month, day){
+    sidebar.style.display = 'block';
+    const dateStr = `${year}-${month+1}-${day}`;
+    sidebarTitle.textContent = `Plan for ${dateStr}`;
+
+    const existing = localStorage.getItem("plan-" + dateStr) || "";
+    sidebarContent.innerHTML = `
+      <p><strong>Events or tasks for ${dateStr}:</strong></p>
+      <textarea placeholder="Enter your plan here...">${existing}</textarea>
+      <button id="save-btn">Save</button>
+      <div id="saved-message" style="color:green; margin-top:5px;"></div>
+    `;
+
+    document.getElementById("save-btn").onclick = function(){
+      const text = sidebarContent.querySelector("textarea").value;
+      localStorage.setItem("plan-" + dateStr, text);
+      document.getElementById("saved-message").textContent = "Saved!";
+    };
+  };
+
+  // Update calendar when month/year changes
+  monthSelect.addEventListener('change', ()=>{
+    renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+  });
+  yearSelect.addEventListener('change', ()=>{
+    renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+  });
+
+  // Initial render
+  renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+});
+</script>
+
+</body>
+</html>
