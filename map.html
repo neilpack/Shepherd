@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="map.css">
 </head>
 <body>
+
+  <!-- Header -->
   <header>
     <nav>
       <ul>
@@ -17,11 +19,13 @@
     </nav>
   </header>
 
+  <!-- Main content -->
   <main id="main-content">
     <div id="map"></div>
     <button id="addPinBtn">+</button>
     <div id="message"></div>
 
+    <!-- Modal for adding pin -->
     <div id="pinModal">
       <form id="pinForm">
         <h2>Add New Pin</h2>
@@ -45,6 +49,7 @@
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
     <div>
       <p>Shepherd &copy; 2025 - MinisterMe</p>
@@ -59,9 +64,9 @@
     </div>
   </footer>
 
-  <!-- Load Google Maps first -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
-  <!-- Then your JS -->
+  <!-- Firebase + Map JS -->
   <script type="module" src="map.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
+
 </body>
 </html>
