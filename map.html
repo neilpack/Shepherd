@@ -1,291 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>iMinister Map</title>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    #map {
-      height: 100%;
-      width: 100%;
-    }
-
-    /* Floating Add Pin Button */
-    #addPinBtn {
-      position: absolute;
-      bottom: 20px;
-      right: 80px; 
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      background-color: #4285F4;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      z-index: 9999;
-      transition: transform 0.2s, background-color 0.2s;
-    }
-
-    #addPinBtn:hover {
-      background-color: #3367D6;
-      transform: scale(1.1);
-    }
-
-    /* Floating Notification Message */
-    #message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 15px 25px;
-      border-radius: 10px;
-      font-size: 18px;
-      text-align: center;
-      z-index: 10000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s;
-    }
-
-    /* Modal Background */
-    #pinModal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 10001;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Modal Content */
-    #pinForm {
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 10px;
-      width: 300px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-
-    #pinForm h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 20px;
-      text-align: center;
-    }
-
-    #pinForm label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    #pinForm input {
-      width: 100%;
-      padding: 6px 8px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    #pinForm button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 10px;
-      background-color: #4285F4;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #pinForm button:hover {
-      background-color: #3367D6;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shepherd Map</title>
+  <link rel="stylesheet" href="map.css">
 </head>
 <body>
-  <div id="map"></div>
-  <button id="addPinBtn">+</button>
-  <div id="message"></div>
 
-  <!-- Modal for adding pin -->
-  <div id="pinModal">
-    <form id="pinForm">
-      <h2>Add New Pin</h2>
-      <label for="pinName">Name</label>
-      <input type="text" id="pinName" required>
+  <!-- Header -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="board.html">Board</a></li>
+        <li><a href="calendar.html">Projects</a></li>
+        <li><a href="map.html" class="active">Map</a></li>
+      </ul>
+    </nav>
+  </header>
 
-      <label for="pinNeeded">What's Needed?</label>
-      <input type="text" id="pinNeeded">
+  <!-- Main content -->
+  <main id="main-content">
+    <div id="map"></div>
+    <button id="addPinBtn">+</button>
+    <div id="message"></div>
 
-      <label for="pinDate">Date</label>
-      <input type="date" id="pinDate">
+    <!-- Modal for adding pin -->
+    <div id="pinModal">
+      <form id="pinForm">
+        <h2>Add New Pin</h2>
+        <label for="pinName">Name</label>
+        <input type="text" id="pinName" required>
 
-      <label for="pinTime">Time</label>
-      <input type="time" id="pinTime">
+        <label for="pinAddress">Address (optional)</label>
+        <input type="text" id="pinAddress" placeholder="Enter an address">
 
-      <button type="submit">Add Pin</button>
-    </form>
-  </div>
+        <label for="pinNeeded">What's Needed?</label>
+        <input type="text" id="pinNeeded">
 
-  <!-- Firebase + Map module -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+        <label for="pinDate">Date</label>
+        <input type="date" id="pinDate">
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyC6ZBvAd5WE2dQ_iVdfVuF_uYq546B8QgI",
-      authDomain: "iminister-map.firebaseapp.com",
-      projectId: "iminister-map",
-      storageBucket: "iminister-map.firebasestorage.app",
-      messagingSenderId: "986772471255",
-      appId: "1:986772471255:web:a3e3d5ec49f61a27815f92",
-      measurementId: "G-TXWMLGM1G7"
-    };
+        <label for="pinTime">Time</label>
+        <input type="time" id="pinTime">
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+        <button type="submit">Add Pin</button>
+      </form>
+    </div>
+  </main>
 
-    // Expose Firestore globally
-    window.db = db;
-    window.collection = collection;
-    window.getDocs = getDocs;
-    window.addDoc = addDoc;
+  <!-- Footer -->
+  <footer>
+    <div>
+      <p>Shepherd &copy; 2025 - MinisterMe</p>
+      <p><a href="#">Report A Problem</a></p>
+      <p><a href="#">Contact Info</a></p>
+      <p>Socials</p>
+    </div>
+    <div>
+      <a href="#">Facebook <img src="images/Facebook_Logo_2023.png" alt="Facebook Logo"></a>
+      <a href="#">Instagram <img src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"></a>
+      <a href="#">X <img src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"></a>
+    </div>
+  </footer>
 
-    const addPinBtn = document.getElementById("addPinBtn");
-    const messageDiv = document.getElementById("message");
-    const pinModal = document.getElementById("pinModal");
-    const pinForm = document.getElementById("pinForm");
-    let addPinMode = false;
-    let tempLatLng = null; // store clicked location
+  <!-- Firebase + Map JS -->
+  <script type="module" src="map.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
 
-    function showMessage(text, duration = 2000) {
-      messageDiv.textContent = text;
-      messageDiv.style.opacity = 1;
-      setTimeout(() => {
-        messageDiv.style.opacity = 0;
-      }, duration);
-    }
-
-    addPinBtn.addEventListener("click", () => {
-      addPinMode = true;
-      addPinBtn.style.backgroundColor = "#0B5ED7";
-      showMessage("Click on the map to place a pin", 2500);
-    });
-
-    // Load Google Maps dynamically
-    const script = document.createElement("script");
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18";
-    script.defer = true;
-    script.async = true;
-    script.onload = () => initMap();
-    document.head.appendChild(script);
-
-    async function initMap() {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 13,
-        center: { lat: 43.816, lng: -111.784 }
-      });
-
-      const db = window.db;
-
-      // Load existing pins
-      try {
-        const snapshot = await window.getDocs(window.collection(db, "pins"));
-        snapshot.forEach(doc => addMarker(map, doc.data()));
-      } catch (error) {
-        console.error("Error loading pins:", error);
-        showMessage("Error loading pins", 3000);
-      }
-
-      // Map click to open modal
-      map.addListener("click", (event) => {
-        if (!addPinMode) return;
-        tempLatLng = event.latLng;
-        pinModal.style.display = "flex";
-      });
-
-      // Handle form submit
-      pinForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const name = document.getElementById("pinName").value;
-        const needed = document.getElementById("pinNeeded").value;
-        const date = document.getElementById("pinDate").value;
-        const time = document.getElementById("pinTime").value;
-
-        if (!name || !tempLatLng) return;
-
-        const newPin = {
-          name,
-          needed,
-          date,
-          time,
-          lat: tempLatLng.lat(),
-          lng: tempLatLng.lng()
-        };
-
-        try {
-          await window.addDoc(window.collection(db, "pins"), newPin);
-          addMarker(map, newPin);
-          showMessage("Pin added successfully!", 2000);
-        } catch (error) {
-          console.error("Error adding pin:", error);
-          showMessage("Error adding pin", 2500);
-        }
-
-        // Reset
-        addPinMode = false;
-        addPinBtn.style.backgroundColor = "#4285F4";
-        pinModal.style.display = "none";
-        pinForm.reset();
-        tempLatLng = null;
-      });
-
-      // Add marker function
-      function addMarker(map, pin) {
-        const marker = new google.maps.Marker({
-          position: { lat: pin.lat, lng: pin.lng },
-          map,
-          title: pin.name,
-          icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-        });
-
-        const infoWindow = new google.maps.InfoWindow({
-          content: `
-            <div style="line-height:1.4;">
-              <strong>Name:</strong> ${pin.name}<br>
-              <strong>What's Needed:</strong> ${pin.needed}<br>
-              <strong>Date:</strong> ${pin.date}<br>
-              <strong>Time:</strong> ${pin.time}
-            </div>
-          `
-        });
-
-        marker.addListener("click", () => infoWindow.open(map, marker));
-      }
-    }
-
-    // Close modal when clicking outside form
-    pinModal.addEventListener("click", (e) => {
-      if (e.target === pinModal) {
-        pinModal.style.display = "none";
-        addPinMode = false;
-        addPinBtn.style.backgroundColor = "#4285F4";
-        pinForm.reset();
-        tempLatLng = null;
-      }
-    });
-  </script>
 </body>
 </html>
