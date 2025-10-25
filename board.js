@@ -8,8 +8,8 @@ const colors = {
 };
 
 let notes = [
-  { id: 1, title: "Yard Help", content: "Brother Smith needs help Saturday", color: colors.one, x: 8, y: 2 },
-  { id: 2, title: "Meal Train", content: "Sign up to bring dinner", color: colors.two, x: 4, y: 3 }
+  { id: 1, title: "Bill Johnson", content: "Brother Smith needs help Saturday in his yard!", color: colors.one, x: 8, y: 2 },
+  { id: 2, title: "Mary Scout", content: "Sick and cannot get out of bed, would love a blessing", color: colors.two, x: 4, y: 3 }
 ];
 
 const usedCoords = new Set();
