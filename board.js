@@ -12,7 +12,6 @@ const notes = [
 const usedCoords = new Set();
 
 // -------------------------------------------------------------------------------- FIREBASE
-main.js
 import { db } from "./firebase.js";
 import { doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
@@ -27,6 +26,10 @@ onSnapshot(doc(db, "data", "arrayDoc"), (docSnap) => {
     // your existing logic here
   }
 });
+
+async function uploadNotes() {
+  await setDoc(doc(db, "data", "arrayData"), {values: notes });
+}
 
 
 // -------------------------------------------------------------------------------- RENDER NOTES
@@ -122,6 +125,7 @@ function addNote(title, content, color, x, y) {
   notes.push(newNote);
   console.log("Added note:", newNote);
   renderNotes();
+  uploadNotes();
 }
 
 // ensures the coords are unique on the board (prevents weird overlap)
