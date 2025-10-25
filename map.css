@@ -3,7 +3,7 @@
     --secondary-color: #6D9DC5;
     --accent-color1: #068D9D;
     --accent-color2: #80DED9;
-    --passive-color: #f5f7fa; /* lighter neutral background */
+    --passive-color: #f5f7fa;
 }
 
 /* Global */
@@ -37,7 +37,8 @@ header a {
     color: white;
     transition: color 0.3s;
 }
-header ul li a:hover {
+header ul li a:hover,
+header ul li a.active {
     color: var(--accent-color2);
 }
 
@@ -124,11 +125,10 @@ footer img {
     width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.45);
     z-index: 10001;
-    display: flex;
     justify-content: center;
     align-items: center;
+    display: flex;
 }
-
 #pinForm {
     background-color: white;
     padding: 30px 35px;
@@ -140,7 +140,6 @@ footer img {
 #pinForm:hover {
     transform: scale(1.02);
 }
-
 #pinForm h2 {
     text-align: center;
     margin-top: 0;
@@ -182,7 +181,7 @@ footer img {
     transform: scale(1.05);
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 900px) {
     header ul {
         flex-direction: column;
