@@ -3,16 +3,17 @@
     --secondary-color: #6D9DC5;
     --accent-color1: #068D9D;
     --accent-color2: #80DED9;
-    --passive-color: #AEECEF;
+    --passive-color: #f5f7fa; /* lighter neutral background */
 }
 
 /* Global */
 html, body {
     margin: 0;
     padding: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--passive-color);
     height: 100%;
+    color: #333;
 }
 
 /* Header */
@@ -23,17 +24,18 @@ header {
 header ul {
     display: flex;
     justify-content: center;
-    gap: 80px;
-    padding: 40px;
+    gap: 60px;
+    padding: 30px;
     margin: 0;
 }
 header ul li {
     list-style: none;
-    font-size: 30px;
+    font-size: 24px;
 }
 header a {
     text-decoration: none;
     color: white;
+    transition: color 0.3s;
 }
 header ul li a:hover {
     color: var(--accent-color2);
@@ -43,49 +45,57 @@ header ul li a:hover {
 footer {
     background-color: var(--primary-color);
     color: white;
-    padding: 50px;
+    padding: 40px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 footer a {
     color: white;
     text-decoration: none;
+    transition: text-decoration 0.3s;
 }
 footer a:hover {
     text-decoration: underline;
 }
 footer img {
-    max-height: 40px;
-    max-width: 40px;
+    max-height: 36px;
+    max-width: 36px;
+    vertical-align: middle;
+    margin-left: 5px;
 }
 
-/* Map & container */
+/* Map container */
 #map {
-    width: 100%;
-    height: calc(100% - 160px); /* leave space for header/footer */
+    width: 90%;
+    height: calc(100vh - 200px);
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* Floating Add Pin Button */
 #addPinBtn {
-    position: absolute;
-    bottom: 20px;
-    right: 80px;
-    width: 50px;
-    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: none;
-    background-color: #ffd6a5; /* match board buttons */
-    color: black;
-    font-size: 30px;
+    background-color: var(--accent-color1);
+    color: white;
+    font-size: 32px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    transition: transform 0.2s, background-color 0.2s;
     z-index: 9999;
 }
 #addPinBtn:hover {
+    background-color: var(--accent-color2);
     transform: scale(1.1);
-    background-color: #fef3bd;
 }
 
 /* Message popup */
@@ -94,10 +104,10 @@ footer img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.85);
     color: #fff;
-    padding: 15px 25px;
-    border-radius: 10px;
+    padding: 16px 28px;
+    border-radius: 12px;
     font-size: 18px;
     text-align: center;
     z-index: 10000;
@@ -112,50 +122,79 @@ footer img {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.45);
     z-index: 10001;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
+
 #pinForm {
-    background-color: #fef3bd;
-    padding: 20px 30px;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    background-color: white;
+    padding: 30px 35px;
+    border-radius: 15px;
+    width: 320px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    transition: transform 0.3s;
 }
+#pinForm:hover {
+    transform: scale(1.02);
+}
+
 #pinForm h2 {
     text-align: center;
     margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: var(--primary-color);
 }
 #pinForm label {
     display: block;
-    margin-top: 10px;
-    font-weight: bold;
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 14px;
 }
 #pinForm input, #pinForm button {
     width: 100%;
-    margin-top: 5px;
-    padding: 6px 8px;
-    border-radius: 5px;
+    margin-top: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    font-size: 14px;
+}
+#pinForm input:focus {
+    outline: none;
+    border-color: var(--accent-color1);
+    box-shadow: 0 0 5px var(--accent-color1);
 }
 #pinForm button {
-    background-color: #ffd6a5;
-    color: black;
+    margin-top: 18px;
+    background-color: var(--accent-color1);
+    color: white;
     border: none;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.2s, transform 0.2s;
 }
 #pinForm button:hover {
-    background-color: #fef3bd;
+    background-color: var(--accent-color2);
+    transform: scale(1.05);
 }
 
-/* Responsive */
-@media (max-width: 800px) {
+/* Responsive adjustments */
+@media (max-width: 900px) {
     header ul {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         text-align: center;
+        padding: 20px;
+    }
+    #map {
+        width: 95%;
+        height: calc(100vh - 220px);
+    }
+    #pinForm {
+        width: 90%;
     }
 }
