@@ -27,17 +27,16 @@
 
     <!-- Modal for adding pin -->
     <div id="pinModal">
-  <form id="pinForm" class="modal-content">
-    <h2>Add Ministering Assignment</h2>
-    <input id="pinName" placeholder="Name" required>
-    <input id="pinNeeded" placeholder="Needed" required>
-    <input id="pinDate" type="date" required>
-    <input id="pinTime" type="time" required>
-    <input id="pinAddress" placeholder="Address (optional)">
-    <button type="submit">Add Pin</button>
-  </form>
-</div>
-
+      <form id="pinForm" class="modal-content">
+        <h2>Add Ministering Assignment</h2>
+        <input id="pinName" placeholder="Name" required>
+        <input id="pinNeeded" placeholder="Needed" required>
+        <input id="pinDate" type="date" required>
+        <input id="pinTime" type="time" required>
+        <input id="pinAddress" placeholder="Address (optional)">
+        <button type="submit">Add Pin</button>
+      </form>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -56,26 +55,8 @@
   </footer>
 
   <!-- Firebase + Map JS -->
-<!-- Firebase + Map JS -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18" async defer></script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-  import { initMap } from "./map.js";
-
-  // Wait until Google Maps is ready, then call initMap
-  window.addEventListener("load", () => {
-    if (typeof google !== "undefined") initMap();
-    else {
-      const check = setInterval(() => {
-        if (typeof google !== "undefined") {
-          clearInterval(check);
-          initMap();
-        }
-      }, 200);
-    }
-  });
-</script>
+  <script type="module" src="map.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
 
 </body>
 </html>
