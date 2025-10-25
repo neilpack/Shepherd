@@ -27,26 +27,17 @@
 
     <!-- Modal for adding pin -->
     <div id="pinModal">
-      <form id="pinForm">
-        <h2>Add New Pin</h2>
-        <label for="pinName">Name</label>
-        <input type="text" id="pinName" required>
+  <form id="pinForm" class="modal-content">
+    <h2>Add Ministering Assignment</h2>
+    <input id="pinName" placeholder="Name" required>
+    <input id="pinNeeded" placeholder="Needed" required>
+    <input id="pinDate" type="date" required>
+    <input id="pinTime" type="time" required>
+    <input id="pinAddress" placeholder="Address (optional)">
+    <button type="submit">Add Pin</button>
+  </form>
+</div>
 
-        <label for="pinAddress">Address (optional)</label>
-        <input type="text" id="pinAddress" placeholder="Enter an address">
-
-        <label for="pinNeeded">What's Needed?</label>
-        <input type="text" id="pinNeeded">
-
-        <label for="pinDate">Date</label>
-        <input type="date" id="pinDate">
-
-        <label for="pinTime">Time</label>
-        <input type="time" id="pinTime">
-
-        <button type="submit">Add Pin</button>
-      </form>
-    </div>
   </main>
 
   <!-- Footer -->
