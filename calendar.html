@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Shepherd Calendar</title>
 <style>
 :root {
@@ -28,31 +28,53 @@ header {
     background-color: var(--primary-color);
     font-weight: bold;
 }
+
 header ul {
     display: flex;
     justify-content: center;
-    gap: 80px;
-    padding: 40px;
+    gap: 2em;          
+    padding: 30px 0;
+    margin: 0;
 }
+
 header ul li {
     list-style: none;
-    font-size: 20px;
 }
+
+.nav-wrapper {
+    background-color: var(--primary-color); 
+    border-radius: 1em;
+    overflow: hidden;   
+    display: inline-block;
+}
+
 header a {
     text-decoration: none;
-    color:white;
+    color: white;
+    padding: 1em 2em;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+header a:hover {
+    background-color: var(--accent-color1);
+    transform: scale(1.3);                     
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.2);  
 }
 
 /* Main Calendar Container */
-#main-content {
-    flex: 1; /* Fill space between header/footer */
-    display: flex;
-    padding: 20px;
+#main-content { 
+  flex: 1; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; 
+  background-color: white; 
 }
 
 /* Calendar Controls Box */
 #controls-box {
-    width: 100%;
+    width: 992px;
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
@@ -61,51 +83,63 @@ header a {
     border-radius: 8px;
     background-color: #f0f0f0;
 }
-#calendar-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+#calendar-controls { display: flex; 
+  gap: 10px; 
+  align-items: center; 
 }
 
 /* Calendar */
-#calendar { 
+#calendar {
     width: 1000px;
     border: 3px black solid;
     padding: .1em .1em 1em .5em;
 }
-h3 {
-    text-align: center;
-    font-size: 2em;
-}
-.day { 
-    display:inline-block; 
-    width:100px; 
-    height:100px; 
-    line-height:40px; 
-    margin:3px; 
-    text-align:center; 
-    background:#eee; 
-    border-radius:5px; 
-    cursor:pointer; 
+
+h3 { text-align: center; font-size: 2em; }
+.day {
+    display:inline-block;
+    width:100px;
+    height:100px;
+    line-height:40px;
+    margin:3px;
+    text-align:center;
+    background:#eee;
+    border-radius:5px;
+    cursor:pointer;
+    vertical-align: top;
+    position: relative;
+    padding-top: 6px;
+    box-sizing: border-box;
 }
 .day:hover { background:#AEECEF; }
-.today { background:#068D9D; }
-.placeholder { background:transparent; cursor:default; }
+.today { background:#068D9D; color: white; }
+
+.placeholder { background:transparent; cursor:default; margin: 4.20px; }
+.day, .placeholder { vertical-align: top; }
+
+/* availability count at bottom */
+.avail-count {
+    font-size: 11px;
+    text-transform: uppercase;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+}
 
 /* Sidebar */
-#sidebar { 
-    flex:1; 
-    padding:20px; 
-    border-left:2px solid #ddd; 
-    background:#f9f9f9; 
-    display:none; 
-    overflow-y:auto; 
+#sidebar {
+    flex:1;
+    padding:20px;
+    border-left:2px solid #ddd;
+    background:#f9f9f9;
+    display:none;
+    overflow-y:auto;
 }
-#sidebar-header {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-}
+#sidebar-header { display:flex; justify-content: space-between; align-items: center; }
 #close-sidebar {
     background: #ff5c5c;
     color: white;
@@ -123,19 +157,115 @@ h3 {
 textarea { width:100%; height:150px; margin-top:10px; font-size:1em; }
 button.save-btn, button.save-close-btn { margin-top:10px; padding:5px 10px; cursor:pointer; font-size:1em; }
 
+.remove-availability-btn {
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 8px;
+}
+.remove-availability-btn:hover { background: #ff0000; }
+
+/* Availability list item */
+.avail-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 6px;
+    border: 1px solid #e0e0e0;
+}
+
 /* Footer */
 footer {
     background-color: var(--primary-color);
     font-weight: bold;
     color: white;
-    padding: 50px;
+    padding: 30px 50px; /* matched header */
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+footer div { margin-bottom: 15px; }
+#social-links {
+    display: flex;
+    gap: 2em; 
+    flex-wrap: wrap;
+}
+.social-link {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.social-link img {
+    max-width: 40px;
+    max-height: 40px;
+    margin-bottom: 0.3em; 
+}
+
+/* Availability button */
+#availability-button-container {
+    margin: 20px 0; /* now scrolls with page */
+}
+
+#availabilityBtn {
+    background-color: var(--accent-color1);
+    color: white;
+    border: none;
+    border-radius: 1em;
+    width: 400px;
+    height: 60px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+#availabilityBtn:hover { transform: scale(1.02); }
+
+/* Modal styles */
+#availabilityModal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    justify-content: center;
     align-items: center;
 }
-#face, #x, #insta { max-height: 40px; max-width: 40px; margin-left: 10px; }
+#availabilityModal .modal-content {
+    background: #fef3bd;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #333;
+}
+
 @media (max-width: 800px) {
     header ul { flex-direction: column; gap: 10px; text-align: center; }
+    footer { flex-direction: column; align-items: center; text-align: center; }
+    #availabilityBtn { width: 80%; }
 }
 </style>
 </head>
@@ -143,16 +273,16 @@ footer {
 
 <!-- Header -->
 <header>
-    <ul>
-        <li><a href="#">Board</a></li>
-        <li><a href="#">Calendar</a></li>
-        <li><a href="#">Map</a></li>
-    </ul>
+  <ul>
+    <li><div class="nav-wrapper"><a href="board.html" target="_blank">Board</a></div></li>
+    <li><div class="nav-wrapper"><a href="calendar.html" target="_blank">Calendar</a></div></li>
+    <li><div class="nav-wrapper"><a href="map.html" target="_blank">Map</a></div></li>
+  </ul>
 </header>
 
 <!-- Main Content -->
 <div id="main-content">
-    <div id="calendar-container">
+    <div id="calendar-container" style="min-width: 700px;">
         <div id="controls-box">
             <div id="calendar-controls">
                 <label for="month-select">Month:</label>
@@ -164,111 +294,259 @@ footer {
         <div id="calendar"></div>
     </div>
 
+    <!-- Availability Button -->
+    <div id="availability-button-container">
+      <button id="availabilityBtn">Enter Your Availability</button>
+    </div>
+
     <div id="sidebar">
         <div id="sidebar-header">
             <h2 id="sidebar-title">Day Details</h2>
             <button id="close-sidebar">×</button>
         </div>
-        <div id="sidebar-content"><p>Select a day to view or add plans.</p></div>
+        <div id="sidebar-content">
+            <p>Select a day to view or add plans.</p>
+        </div>
     </div>
 </div>
 
 <!-- Footer -->
 <footer>
-    <div>
-        <p>Shepherd &copy; 2025 - MinisterMe</p>
-        <p><a href="#">Report A Problem</a></p>
-        <p><a href="#">Contact Info</a></p>
-        <p>Socials</p>
-    </div>
-    <div>
-        <a href="#">Facebook <img id="face" src="images/Facebook_Logo_2023.png" alt="Facebook Logo"></a>
-        <a href="#">Instagram <img id="insta" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"></a>
-        <a href="#">X <img id="x" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"></a>
-    </div>
+  <div>
+      <p>Shepherd &copy; 2025 - MinisterMe</p>
+      <p><a href="#" style="color: white;">Report A Problem</a></p>
+      <p><a href="#" style="color: white;">Contact Info</a></p>
+      <p>Socials</p>
+  </div>
+  <div id="social-links">
+      <a href="https://www.facebook.com/" target="_blank" class="social-link">
+          <img id="face" src="images/Facebook_Logo_2023.png" alt="Facebook Logo">
+          <span>Facebook</span>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" class="social-link">
+          <img id="insta" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo">
+          <span>Instagram</span>
+      </a>
+      <a href="https://www.x.com" target="_blank" class="social-link">
+          <img id="x" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo">
+          <span>X</span>
+      </a>
+  </div>
 </footer>
 
+<!-- Availability Modal -->
+<div id="availabilityModal" class="modal-overlay">
+  <div class="modal-content">
+      <span class="close-btn" id="closeAvailability">&times;</span>
+      <h2>Enter Your Availability</h2>
+      <label for="nameInput">Your Name:</label><br/>
+      <input type="text" id="nameInput" placeholder="Enter your name" style="width: 80%; margin-bottom:10px; padding:5px;"><br/>
+      <label for="dateInput">Date:</label><br/>
+      <input type="date" id="dateInput" style="width: 80%; margin-bottom:10px; padding:5px;"><br/>
+      <button id="saveAvailabilityBtn" style="margin-top:10px; padding: 5px 10px;">Save Availability</button>
+      <div id="availabilityMessage" style="color:green; margin-top:5px;"></div>
+  </div>
+</div>
+
 <script>
-// Calendar JS
-document.addEventListener('DOMContentLoaded', function() {
-  const calendarEl = document.getElementById('calendar');
-  const sidebar = document.getElementById('sidebar');
-  const sidebarTitle = document.getElementById('sidebar-title');
-  const sidebarContent = document.getElementById('sidebar-content');
-  const monthSelect = document.getElementById('month-select');
-  const yearSelect = document.getElementById('year-select');
-  const closeBtn = document.getElementById('close-sidebar');
 
-  // Close sidebar button
-  closeBtn.addEventListener('click', () => { sidebar.style.display = 'none'; });
 
-  // Populate months
-  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  months.forEach((m,i)=>{
-    const option = document.createElement('option');
-    option.value = i;
-    option.textContent = m;
-    monthSelect.appendChild(option);
-  });
+/* Helpers */
+function pad(n){ return String(n).padStart(2,'0'); }
 
-  // Populate years
-  for(let y=2020; y<=2030; y++){
-    const option = document.createElement('option');
-    option.value = y;
-    option.textContent = y;
-    yearSelect.appendChild(option);
-  }
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-  // Current month/year
-  const now = new Date();
-  monthSelect.value = now.getMonth();
-  yearSelect.value = now.getFullYear();
+const calendarEl = document.getElementById('calendar');
+const sidebar = document.getElementById('sidebar');
+const sidebarTitle = document.getElementById('sidebar-title');
+const sidebarContent = document.getElementById('sidebar-content');
+const monthSelect = document.getElementById('month-select');
+const yearSelect = document.getElementById('year-select');
+const closeBtn = document.getElementById('close-sidebar');
 
-  function renderCalendar(year, month){
-    const today = new Date();
-    const firstDay = new Date(year, month,1);
-    const lastDay = new Date(year, month+1,0);
-    let html = `<h3>${months[month]} ${year}</h3>`;
-    for(let i=0;i<firstDay.getDay();i++) html += `<div class="day placeholder"></div>`;
-    for(let d=1; d<=lastDay.getDate(); d++){
-      const isToday = d===today.getDate() && month===today.getMonth() && year===today.getFullYear();
-      html += `<div class="day ${isToday ? 'today' : ''}" onclick="selectDate(${year},${month},${d})">${d}</div>`;
-    }
-    calendarEl.innerHTML = html;
-  }
+const availabilityBtn = document.getElementById('availabilityBtn');
+const availabilityModal = document.getElementById('availabilityModal');
+const closeAvailability = document.getElementById('closeAvailability');
+const saveAvailabilityBtn = document.getElementById('saveAvailabilityBtn');
+const nameInput = document.getElementById('nameInput');
+const dateInput = document.getElementById('dateInput');
+const availabilityMessage = document.getElementById('availabilityMessage');
 
-  window.selectDate = function(year, month, day){
-    sidebar.style.display = 'block';
-    const dateStr = `${year}-${month+1}-${day}`;
-    sidebarTitle.textContent = `Plan for ${dateStr}`;
-    sidebarContent.innerHTML = `
-      <p><strong>Events or tasks for ${dateStr}:</strong></p>
-      <textarea placeholder="Enter your plan here...">${localStorage.getItem("plan-" + dateStr) || ""}</textarea>
-      <button class="save-btn">Save</button>
-      <button class="save-close-btn">Save & Close</button>
-      <div id="saved-message" style="color:green; margin-top:5px;"></div>
-    `;
-    const textarea = sidebarContent.querySelector("textarea");
-    document.querySelector(".save-btn").onclick = function(){
-      localStorage.setItem("plan-" + dateStr, textarea.value);
-      document.getElementById("saved-message").textContent = "Saved!";
-    };
-    document.querySelector(".save-close-btn").onclick = function(){
-      localStorage.setItem("plan-" + dateStr, textarea.value);
-      sidebar.style.display = 'none';
-    };
-  };
+/* Close sidebar */
+closeBtn.addEventListener('click', () => { sidebar.style.display = 'none'; });
 
-  monthSelect.addEventListener('change', ()=>{
-    renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
-  });
-  yearSelect.addEventListener('change', ()=>{
-    renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
-  });
-
-  renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+/* Populate months */
+months.forEach((m,i)=>{
+  const option = document.createElement('option');
+  option.value = i;
+  option.textContent = m;
+  monthSelect.appendChild(option);
 });
-</script>
 
+/* Populate years */
+for(let y=2020; y<=2030; y++){
+  const option = document.createElement('option');
+  option.value = y;
+  option.textContent = y;
+  yearSelect.appendChild(option);
+}
+
+/* Set current */
+const now = new Date();
+monthSelect.value = now.getMonth();
+yearSelect.value = now.getFullYear();
+
+/* Global renderCalendar */
+function renderCalendar(year, month){
+    const availability = JSON.parse(localStorage.getItem("availability")) || {};
+    const today = new Date();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    let html = `<h3>${months[month]} ${year}</h3>`;
+
+    for (let i = 0; i < firstDay.getDay(); i++) {
+        html += `<div class="day placeholder"></div>`;
+    }
+
+    for (let d = 1; d <= lastDay.getDate(); d++) {
+        const dateKey = `${year}-${pad(month+1)}-${pad(d)}`;
+        const names = availability[dateKey] || [];
+        const isToday = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+
+        html += `
+            <div class="day ${isToday ? 'today' : ''}" onclick="selectDate(${year}, ${month}, ${d})" data-date="${dateKey}">
+                <div style="font-size:16px; font-weight:600;">${d}</div>
+                ${names.length > 0 ? `<div class="avail-count">${names.length} AVAILABLE</div>` : ''}
+            </div>
+        `;
+    }
+
+    calendarEl.innerHTML = html;
+}
+
+/* selectDate function */
+window.selectDate = function(year, month, day){
+    sidebar.style.display = 'block';
+    const dateKey = `${year}-${pad(month+1)}-${pad(day)}`;
+    sidebarTitle.textContent = `Plan for ${dateKey}`;
+
+    const plan = localStorage.getItem("plan-" + dateKey) || "";
+    const availability = JSON.parse(localStorage.getItem("availability")) || {};
+    const names = availability[dateKey] || [];
+
+    let availHtml = '';
+    if(names.length === 0){
+        availHtml = `<p>No one has marked availability for this date.</p>`;
+    } else {
+        availHtml = `<div id="availability-list">`;
+        names.forEach((n, idx) => {
+            availHtml += `<div class="avail-list-item"><span class="avail-name">${escapeHtml(n)}</span><div><button class="remove-availability-btn" data-date="${dateKey}" data-name="${escapeHtmlAttr(n)}">Remove</button></div></div>`;
+        });
+        availHtml += `</div>`;
+    }
+
+    sidebarContent.innerHTML = `
+        <p><strong>Saved plan for ${dateKey}:</strong></p>
+        <textarea id="plan-textarea" placeholder="Enter your plan here...">${escapeHtml(plan)}</textarea>
+        <div>
+            <button class="save-btn" id="sidebar-save">Save</button>
+            <button class="save-close-btn" id="sidebar-save-close">Save & Close</button>
+            <div id="saved-message" style="color:green; margin-top:5px;"></div>
+        </div>
+        <hr style="margin-top:12px;"/>
+        <div>
+            <p><strong>Availability for ${dateKey}:</strong></p>
+            ${availHtml}
+        </div>
+    `;
+
+    const textarea = document.getElementById('plan-textarea');
+    const savedMsg = document.getElementById('saved-message');
+    document.getElementById('sidebar-save').onclick = function(){
+        localStorage.setItem("plan-" + dateKey, textarea.value);
+        savedMsg.textContent = "Saved!";
+        setTimeout(()=> savedMsg.textContent = '', 1500);
+    };
+    document.getElementById('sidebar-save-close').onclick = function(){
+        localStorage.setItem("plan-" + dateKey, textarea.value);
+        sidebar.style.display = 'none';
+    };
+
+    const availabilityList = sidebarContent.querySelector('#availability-list');
+    if(availabilityList){
+        availabilityList.addEventListener('click', function(e){
+            const btn = e.target.closest('.remove-availability-btn');
+            if(!btn) return;
+            const dt = btn.getAttribute('data-date');
+            const nm = btn.getAttribute('data-name');
+            const nameDecoded = htmlAttrDecode(nm);
+            removeAvailability(dt, nameDecoded);
+            window.selectDate(year, month, day);
+            renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+        });
+    }
+};
+
+function removeAvailability(dateKey, name){
+    const availability = JSON.parse(localStorage.getItem("availability")) || {};
+    if(!availability[dateKey]) return;
+    availability[dateKey] = availability[dateKey].filter(n => n !== name);
+    if(availability[dateKey].length === 0) delete availability[dateKey];
+    localStorage.setItem("availability", JSON.stringify(availability));
+}
+
+/* Availability modal open/close */
+availabilityBtn.addEventListener('click', () => {
+    availabilityModal.style.display = 'flex';
+});
+closeAvailability.addEventListener('click', () => {
+    availabilityModal.style.display = 'none';
+    availabilityMessage.textContent = '';
+});
+availabilityModal.addEventListener('click', (e) => {
+    if(e.target === availabilityModal) availabilityModal.style.display = 'none';
+});
+
+/* Save availability */
+saveAvailabilityBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    const date = dateInput.value;
+    if(!name || !date){
+        availabilityMessage.style.color = 'red';
+        availabilityMessage.textContent = 'Please fill in both fields!';
+        return;
+    }
+    const availability = JSON.parse(localStorage.getItem("availability")) || {};
+    if(!availability[date]) availability[date] = [];
+    if(!availability[date].includes(name)) availability[date].push(name);
+    localStorage.setItem("availability", JSON.stringify(availability));
+    availabilityMessage.style.color = 'green';
+    availabilityMessage.textContent = 'Saved!';
+    nameInput.value = '';
+    dateInput.value = '';
+    renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+});
+
+/* Month/year change */
+monthSelect.addEventListener('change', ()=> renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value)));
+yearSelect.addEventListener('change', ()=> renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value)));
+
+/* Initial render */
+renderCalendar(parseInt(yearSelect.value), parseInt(monthSelect.value));
+
+/* Escape functions */
+function escapeHtml(str) {
+    if(!str) return '';
+    return str.replace(/&/g, "&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function escapeHtmlAttr(str){
+    return str.replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function htmlAttrDecode(str){
+    const txt = document.createElement('textarea');
+    txt.innerHTML = str;
+    return txt.value;
+}
+</script>
 </body>
 </html>
