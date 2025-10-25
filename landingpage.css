@@ -1,0 +1,41 @@
+.video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
+
+}
+
+.content {
+    z-index: 1;
+    position: relative;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#face {
+    max-width: 25px;
+    max-height: 25px;
+}
+
+#x {
+    max-width: 30px;
+    max-height: 30px;
+}
+
+#insta {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+footer {
+    background-color: white;
+}
