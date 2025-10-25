@@ -19,7 +19,7 @@ html {
     font-family: "borel", 'Times New Roman', Times, serif;
 }
 body {
-    background-color: var(--passive-color);
+    background-color: rgb(150, 112, 62);
 }
 
 
@@ -67,6 +67,12 @@ header a {
     border-radius: 10px;
     padding: 10px;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
+}
+#board section:hover {
+    transition: transform 0.2s;
+    cursor: pointer;
+    opacity: 90%;
+    box-shadow: 2px 4px 8px rgba(57, 57, 57, 0.25);
 }
 
 /* Add Note Pop up */
