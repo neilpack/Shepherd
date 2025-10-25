@@ -116,7 +116,6 @@ main#main-content {
     z-index: 10001;
     justify-content: center;
     align-items: center;
-    display: flex;
 }
 
 #pinForm {
