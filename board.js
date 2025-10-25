@@ -102,8 +102,8 @@ function addNote(title, content, color, x, y) {
 function getUniqueCoords() {
     let x, y, key;
     do {
-        x = getRandomInRange(1, 12);
-        y = getRandomInRange(1, 4);
+        x = getRandomInRange(1, 10);
+        y = getRandomInRange(1, 3);
         key = `${x},${y}`;
     } while (usedCoords.has(key));
 
@@ -116,7 +116,7 @@ function getUniqueCoords() {
 submitNoteBtn.addEventListener('click', () => {
 
     // Maximum notes = columns * rows
-    const maxNotes = 12 * 4;
+    const maxNotes = 10 * 3;
     if (notes.length >= maxNotes) {
         alert("Too many notes on the board at once! Please remove a note first.");
         return;
