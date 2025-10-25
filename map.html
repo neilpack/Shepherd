@@ -63,8 +63,14 @@
     </div>
   </footer>
   <!-- Firebase + Map JS -->
-  <script type="module" src="map.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
+    <!-- Load Google Maps first -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap"
+    async
+    defer
+  ></script>
 
+  <!-- Then your Firebase + logic AFTER Maps -->
+  <script type="module" src="map.js"></script>
 </body>
 </html>
