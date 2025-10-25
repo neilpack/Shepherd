@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css">
+
+  <!-- Modular Firebase setup -->
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="login.js"></script>
 </head>
 <body>
-    <video autoplay loop muted class="video">
-        <source src="images/6646677-hd_1920_1080_24fps.mp4" type="video/mp4">
-    </video>
+  <video autoplay loop muted class="video">
+    <source src="images/6646677-hd_1920_1080_24fps.mp4" type="video/mp4">
+  </video>
 
-    <!-- Back Button -->
-    <div class="back-container">
-        <button class="back-button" onclick="goBack()">← Back</button>
+  <!-- Back Button -->
+  <div class="back-container">
+    <button class="back-button" onclick="goBack()">← Back</button>
+  </div>
+
+  <div class="sign">
+    <form id="form">
+      <input type="text" name="email" id="email" placeholder="Email">
+      <input type="password" name="password" id="password" placeholder="Password">
+      <input type="submit" value="Sign in">
+      <p id="error-message"></p>
+    </form>
+
+    <div class="signup-link">
+      Don’t have an account? <a href="signup.html">Sign up</a>
     </div>
+  </div>
 
-    <div class="sign">
-        <form id="form">
-            <input type="text" name="username" id="username" placeholder="Username">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <input type="submit" value="Sign in">
-        </form>
-        <div class="signup-link">
-            Don't have an account? <a href="signup.html">Sign up</a>
-        </div>
-    </div>
-
-
-    <script>
-        // Handle Sign In redirect
-        document.getElementById('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            window.location.href = 'board.html'; // redirect after sign in
-        });
-
-        // Handle Back button
-        function goBack() {
-            window.location.href = 'landingpage.html'; // 👈 change to your actual previous page
-        }
-    </script>
+  <script>
+    function goBack() {
+      window.location.href = 'landingpage.html';
+    }
+  </script>
 </body>
 </html>
