@@ -12,6 +12,14 @@
 html {
     height: 100%;
 }
+
+.logo img, .logo {
+    max-width: 350px;
+    max-height: 350px;
+    grid-row: 1/3;
+    margin: 10px auto;
+}
+
 body {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -34,16 +42,29 @@ body {
     grid-row: 3;
 }
 
-#login, #login a {
-    text-decoration: none;
-    font-size: 1.2em;
+
+#login {
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+    display: flex;
     gap: 100px;
-    color: white;
     grid-row: 4;
+    margin: auto auto auto 610px ;
 }
 
 .button {
     background-color: burlywood;
-    padding: 1em;
-    border-radius: .5em;
+    border-radius: .3em;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: white;
+    grid-row: 4;
+    padding: .5em .5em;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-5px);
 }
