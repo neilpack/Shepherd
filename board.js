@@ -8,24 +8,39 @@ const notes = [
   { id: 2, title: "Meal Train", content: "Sign up to bring dinner", color: colors.two, x: 4, y: 3 }
 ];
 
+const usedCoords = new Set();
 
 // --------------------------------------------------------------------------------
+function renderNotes() {
+    const board = document.getElementById("board");
+    board.innerHTML = ""; // clear existing notes
+    
+    notes.forEach(note => {
+    const section = document.createElement("section");
 
-const board = document.getElementById("board");
-notes.forEach(note => {
-  const section = document.createElement("section");
+    //Info in the sticky note
+    section.className = "note";
+    section.style.backgroundColor = note.color;
+    section.textContent = `${note.title}: ${note.content}`;
 
-  //Info in the sticky note
-  section.className = "note";
-  section.style.backgroundColor = note.color;
-  section.textContent = `${note.title}: ${note.content}`;
+    // Position on grid
+    section.style.gridColumnStart = note.x;
+    section.style.gridRowStart = note.y;
 
-  // Position on grid
-  section.style.gridColumnStart = note.x;
-  section.style.gridRowStart = note.y;
+    // adds the click to remove
+    section.addEventListener("click", () => {
+      const confirmDelete = confirm("Remove sticky note?");
+      if (confirmDelete) {
+        notes.splice(index, 1); // Remove from notes array
+        usedCoords.delete(`${note.x},${note.y}`); // Remove coordinates from usedCoords
+        renderNotes();
+        console.log(notes);
+      }
+    });
 
-  board.appendChild(section);
+    board.appendChild(section);
 });
+}
 
 // -------------------------------------------------------------------------------
 
@@ -49,29 +64,70 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Add note function
-function addNote(title, content) {
+// ---------------------------------------------------------------------------------
+
+// Adds note into array
+function addNote(title, content, color, x, y) {
   const newId = notes.length ? notes[notes.length - 1].id + 1 : 1;
-  const newNote = { id: newId, title, content };
+  const newNote = { id: newId, title, content, color, x, y};
   notes.push(newNote);
   console.log("Added note:", newNote);
+  renderNotes();
 }
 
-// Hook up the submit button
+// ensures the coords are unique on the board (prevents weird overlap)
+function getUniqueCoords() {
+    let x, y, key;
+    do {
+        x = getRandomInRange(1, 12);
+        y = getRandomInRange(1, 4);
+        key = `${x},${y}`;
+    } while (usedCoords.has(key));
+
+    usedCoords.add(key);
+    //usedCoords.delete(`${note.x},${note.y}`) this will be used to delete thiss
+    return { x, y };
+}
+
+//click add note button
 submitNoteBtn.addEventListener('click', () => {
-  const title = document.getElementById('noteTitle').value;
-  const content = document.getElementById('noteContent').value;
 
-  if (!content.trim()) {
-    alert("Please write something for your note!");
-    return;
-  }
+    // Maximum notes = columns * rows
+    const maxNotes = 12 * 4;
+    if (notes.length >= maxNotes) {
+        alert("Too many notes on the board at once! Please remove a note first.");
+        return;
+    }
 
-  addNote(title, content);
+    const title = document.getElementById('noteTitle').value;
+    const content = document.getElementById('noteContent').value;
 
-  // Clear input fields
-  document.getElementById('noteTitle').value = '';
-  document.getElementById('noteContent').value = '';
+    if (!content.trim()) {
+        alert("Please write something for your note!");
+        return;
+    }
 
-  modal.style.display = 'none'; // Hide modal
+    const color = getRandomColor();
+    const { x, y } = getUniqueCoords();
+
+    addNote(title, content, color, x, y);
+
+    document.getElementById('noteTitle').value = '';
+    document.getElementById('noteContent').value = '';
+
+    modal.style.display = 'none'; // Hide modal
 });
+
+// -----------------------------------------------------------------------------------------
+function getRandomInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function getRandomColor() {
+    const colorValues = Object.values(colors);
+    const randomIndex = Math.floor(Math.random() * colorValues.length);
+    return colorValues[randomIndex];
+}
+
+// -----------------------------------------------------------------------------------------
+
+renderNotes();
