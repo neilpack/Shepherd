@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Firebase configuration
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyC6ZBvAd5WE2dQ_iVdfVuF_uYq546B8QgI",
   authDomain: "iminister-map.firebaseapp.com",
@@ -25,7 +25,7 @@ const messageDiv = document.getElementById("message");
 const pinModal = document.getElementById("pinModal");
 const pinForm = document.getElementById("pinForm");
 
-// Map initialization
+// Initialize Map
 window.initMap = async function() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
@@ -34,7 +34,7 @@ window.initMap = async function() {
 
   geocoder = new google.maps.Geocoder();
 
-  // Load pins from Firestore
+  // Load existing pins
   try {
     const snapshot = await getDocs(collection(db, "pins"));
     snapshot.forEach(doc => addMarker(doc.data()));
