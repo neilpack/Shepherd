@@ -25,7 +25,6 @@ const messageDiv = document.getElementById("message");
 const pinModal = document.getElementById("pinModal");
 const pinForm = document.getElementById("pinForm");
 
-// Initialize Map
 window.initMap = async function() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
@@ -94,7 +93,7 @@ window.initMap = async function() {
 function showMessage(text, duration = 2000) {
   messageDiv.textContent = text;
   messageDiv.style.opacity = 1;
-  setTimeout(() => messageDiv.style.opacity = 0, duration);
+  setTimeout(() => (messageDiv.style.opacity = 0), duration);
 }
 
 async function geocodeAddress(address) {
