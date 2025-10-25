@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+
+.borel-regular {
+    font-family: "Borel", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+:root {
+    --primary-color: #53599A;
+    --secondary-color: #6D9DC5;
+    --accent-color1: #068D9D;
+    --accent-color2: #80DED9;
+    --passive-color: #AEECEF;
+}
+
+  
+
+/* Global */
+html { font-family: "Borel", 'Times New Roman', Times, serif; }
+body {
+    background-color: var(--passive-color);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: var(--primary-color);
+    font-weight: bold;
+}
+
+header ul {
+    display: flex;
+    justify-content: center;
+    gap: 2em;          
+    padding: 30px 0;
+    margin: 0;
+}
+
+header ul li {
+    list-style: none;
+}
+
+.nav-wrapper {
+    background-color: var(--primary-color); 
+    border-radius: 1em;
+    overflow: hidden;   
+    display: inline-block;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+    padding: 1em 2em;
+    display: inline-block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+header a:hover {
+    background-color: var(--accent-color1);
+    transform: scale(1.3);                     
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.2);  
+}
+
+/* Main Calendar Container */
+#main-content { 
+  flex: 1; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; 
+  background-color: white; 
+}
+
+/* Calendar Controls Box */
+#controls-box {
+    width: 992px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+}
+#calendar-controls { display: flex; 
+  gap: 10px; 
+  align-items: center; 
+}
+
+/* Calendar */
+#calendar {
+    width: 1000px;
+    border: 3px black solid;
+    padding: .1em .1em 1em .5em;
+}
+
+h3 { text-align: center; font-size: 2em; }
+.day {
+    display:inline-block;
+    width:100px;
+    height:100px;
+    line-height:40px;
+    margin:3px;
+    text-align:center;
+    background:#eee;
+    border-radius:5px;
+    cursor:pointer;
+    vertical-align: top;
+    position: relative;
+    padding-top: 6px;
+    box-sizing: border-box;
+}
+.day:hover { background:#AEECEF; }
+.today { background:#068D9D; color: white; }
+
+.placeholder { background:transparent; cursor:default; margin: 4.20px; }
+.day, .placeholder { vertical-align: top; }
+
+/* availability count at bottom */
+.avail-count {
+    font-size: 11px;
+    text-transform: uppercase;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Sidebar */
+#sidebar {
+    flex:1;
+    padding:20px;
+    border-left:2px solid #ddd;
+    background:#f9f9f9;
+    display:none;
+    overflow-y:auto;
+}
+#sidebar-header { display:flex; justify-content: space-between; align-items: center; }
+#close-sidebar {
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    line-height: 28px;
+    text-align: center;
+}
+#close-sidebar:hover { background: #ff0000; }
+textarea { width:100%; height:150px; margin-top:10px; font-size:1em; }
+button.save-btn, button.save-close-btn { margin-top:10px; padding:5px 10px; cursor:pointer; font-size:1em; }
+
+.remove-availability-btn {
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 8px;
+}
+.remove-availability-btn:hover { background: #ff0000; }
+
+/* Availability list item */
+.avail-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    font-weight: bold;
+    color: white;
+    padding: 30px 50px; /* matched header */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+footer div { margin-bottom: 15px; }
+#social-links {
+    display: flex;
+    gap: 2em; 
+    flex-wrap: wrap;
+}
+.social-link {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.social-link img {
+    max-width: 40px;
+    max-height: 40px;
+    margin-bottom: 0.3em; 
+}
+
+/* Availability button */
+#availability-button-container {
+    margin: 20px 0; /* now scrolls with page */
+}
+
+#availabilityBtn {
+    background-color: var(--accent-color1);
+    color: white;
+    border: none;
+    border-radius: 1em;
+    width: 400px;
+    height: 60px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+#availabilityBtn:hover { transform: scale(1.02); }
+
+/* Modal styles */
+#availabilityModal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+#availabilityModal .modal-content {
+    background: #fef3bd;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #333;
+}
+
+@media (max-width: 800px) {
+    header ul { flex-direction: column; gap: 10px; text-align: center; }
+    footer { flex-direction: column; align-items: center; text-align: center; }
+    #availabilityBtn { width: 80%; }
+}
