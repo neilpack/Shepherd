@@ -9,33 +9,41 @@
 
 }
 
-.content {
-    z-index: 1;
-    position: relative;
+html {
+    height: 100%;
 }
-
 body {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     margin: 0;
     padding: 0;
     height: 100%;
     overflow: hidden;
+    position: relative;
 }
 
-#face {
-    max-width: 25px;
-    max-height: 25px;
+#list, #login {
+    display: flex;
+    justify-content: center;
 }
 
-#x {
-    max-width: 30px;
-    max-height: 30px;
+#list {
+    gap: 500px;
+    color: white;
+    font-size: 3em;
+    grid-row: 3;
 }
 
-#insta {
-    max-width: 40px;
-    max-height: 40px;
+#login, #login a {
+    text-decoration: none;
+    font-size: 1.2em;
+    gap: 100px;
+    color: white;
+    grid-row: 4;
 }
 
-footer {
-    background-color: white;
+.button {
+    background-color: burlywood;
+    padding: 1em;
+    border-radius: .5em;
 }
