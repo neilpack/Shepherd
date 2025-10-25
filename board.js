@@ -1,10 +1,13 @@
+import { db } from "./firebase.js";
+import { doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
 // -------------------------------------------------------------------------------- VARIABLES
 const colors = {
   one: "#fef3bd",
   two: "#ffd6a5"
 };
 
-const notes = [
+let notes = [
   { id: 1, title: "Yard Help", content: "Brother Smith needs help Saturday", color: colors.one, x: 8, y: 2 },
   { id: 2, title: "Meal Train", content: "Sign up to bring dinner", color: colors.two, x: 4, y: 3 }
 ];
@@ -12,25 +15,19 @@ const notes = [
 const usedCoords = new Set();
 
 // -------------------------------------------------------------------------------- FIREBASE
-import { db } from "./firebase.js";
-import { doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-// Upload array
-await setDoc(doc(db, "data", "arrayDoc"), { values: notes });
-
-// Listen for real-time updates
+// Sync Firestore to local notes
 onSnapshot(doc(db, "data", "arrayDoc"), (docSnap) => {
   if (docSnap.exists()) {
-    const arr = docSnap.data().values;
-    console.log("Array:", arr);
-    // your existing logic here
+    notes = docSnap.data().values;
+    console.log("Fetched from Firestore:", notes);
+    renderNotes();
   }
 });
 
+// Upload current notes to Firestore
 async function uploadNotes() {
-  await setDoc(doc(db, "data", "arrayData"), {values: notes });
+  await setDoc(doc(db, "data", "arrayDoc"), { values: notes });
 }
-
 
 // -------------------------------------------------------------------------------- RENDER NOTES
 function renderNotes() {
@@ -113,6 +110,7 @@ removeNoteBtn.addEventListener('click', () => {
     noteToRemoveIndex = null;
     removeModal.style.display = 'none'; // hide REMOVE modal
     renderNotes();
+    uploadNotes();
   }
 });
 
