@@ -1,3 +1,9 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; 
+}
+
 .video {
     position: fixed;
     top: 0;
@@ -9,12 +15,15 @@
 }
 
 .sign {
-    margin: 300px auto;
-    text-align: center;
+    position: relative;
     display: flex;
-    flex-direction: column; 
-    align-items: center;    
-    justify-content: center
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    text-align: center;
+    padding: 0 20px; 
+    margin: 0; 
 }
 
 #form {
@@ -43,29 +52,72 @@
       flex-direction: column;
       align-items: flex-start;
       margin-bottom: 20px;
-    }
+}
 
     .input-group input {
-      width: 300px;
-      height: 40px;
-      border-radius: 1em;
-      border: 2px solid #ccc;
-      transition: border-color 0.3s ease;
-      padding-left: 15px;
+        width: 300px;
+        height: 40px;
+        border-radius: 1em;
+        border: 2px solid #ccc;
+        transition: border-color 0.3s ease;
+        padding-left: 15px;
     }
 
     .input-group input:focus {
-      border-color: #4d95b4;
-      outline: none;
+        border-color: #4d95b4;
+        outline: none;
     }
 
     .error {
-      color: red;
-      font-size: 14px;
-      margin-top: 5px;
-      display: none; /* hidden by default */
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none; 
     }
 
     .error-border {
-      border-color: red !important;
+        border-color: red !important;
     }
+
+    /* Back Button */
+.back-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.back-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 0.5em 1.2em;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: white;
+    z-index: 10;
+}
+
+.signup-link a {
+    color: #4d95b4;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.signup-link a:hover {
+    color: #fff;
+}
