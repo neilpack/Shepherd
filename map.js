@@ -61,6 +61,7 @@ window.initMap = async function() {
     const date = document.getElementById("pinDate").value;
     const time = document.getElementById("pinTime").value;
     const address = document.getElementById("pinAddress").value;
+    const notes = document.getElementById("pinNotes").value;
 
     if (address && !tempLatLng) await geocodeAddress(address);
     if (!name || !tempLatLng) return alert("Enter a valid location.");
@@ -70,6 +71,7 @@ window.initMap = async function() {
       needed,
       date,
       time,
+      notes,
       lat: tempLatLng.lat(),
       lng: tempLatLng.lng()
     };
@@ -126,6 +128,7 @@ function addMarker(pin) {
       Needed: ${pin.needed}<br>
       Date: ${pin.date}<br>
       Time: ${pin.time}
+      Notes: ${pin.notes || ''} <!--NEW-->
     </div>`
   });
 
