@@ -38,6 +38,7 @@ header ul {
     gap: 2em;          
     padding: 10px 0;
     margin: 0;
+    font-family: 'Times New Roman', Times, serif;
 }
 header ul li {
     list-style: none;
