@@ -16,7 +16,26 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Array to hold notes loaded from Firestore
-// let notes = [];
+let notes = [];
+
+async function loadNotesFromFirestore() {
+    notes = [];
+    const snapshot = await getDocs(collection(db, "pins"));
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        // Only name and need
+        notes.push({
+            id: doc.id,
+            title: data.name || "No Name",
+            content: data.needed || "",
+            color: getRandomColor(),
+            x: getRandomInRange(1,12),
+            y: getRandomInRange(1,4)
+        });
+    });
+    renderNotes();
+}
+
 
 
 
@@ -113,12 +132,30 @@ removeNoteBtn.addEventListener('click', () => {
 // --------------------------------------------------------------------------------- ADDING NOTE FUNCTIONS
 
 // Adds note into array
-function addNote(title, content, color, x, y) {
-  const newId = notes.length ? notes[notes.length - 1].id + 1 : 1;
-  const newNote = { id: newId, title, content, color, x, y};
-  notes.push(newNote);
-  console.log("Added note:", newNote);
-  renderNotes();
+// function addNote(title, content, color, x, y) {
+//   const newId = notes.length ? notes[notes.length - 1].id + 1 : 1;
+//   const newNote = { id: newId, title, content, color, x, y};
+//   notes.push(newNote);
+//   console.log("Added note:", newNote);
+//   renderNotes();
+// }
+async function addNote(title, content, color, x, y) {
+    const newNote = { title, content, color, x, y };
+    notes.push(newNote);
+    
+    // Save to Firestore
+    try {
+        await addDoc(collection(db, "pins"), {
+            name: title,
+            needed: content,
+            lat: null,    // Pins without map location for now
+            lng: null
+        });
+    } catch(err) {
+        console.error("Error adding note to Firestore:", err);
+    }
+    
+    renderNotes();
 }
 
 // ensures the coords are unique on the board (prevents weird overlap)
@@ -136,22 +173,40 @@ function getUniqueCoords() {
 }
 
 //click add note button
+// submitNoteBtn.addEventListener('click', () => {
+
+//     // Maximum notes = columns * rows
+//     const maxNotes = 12 * 4;
+//     if (notes.length >= maxNotes) {
+//         alert("Too many notes on the board at once! Please remove a note first.");
+//         return;
+//     }
+
+//     const title = document.getElementById('noteTitle').value;
+//     const content = document.getElementById('noteContent').value;
+
+//     if (!content.trim()) {
+//         alert("Please write something for your note!");
+//         return;
+//     }
 submitNoteBtn.addEventListener('click', () => {
+    const title = document.getElementById('noteTitle').value.trim();
+    const content = document.getElementById('noteContent').value.trim();
 
-    // Maximum notes = columns * rows
-    const maxNotes = 12 * 4;
-    if (notes.length >= maxNotes) {
-        alert("Too many notes on the board at once! Please remove a note first.");
+    if (!title || !content) {
+        alert("Please fill out both fields!");
         return;
     }
 
-    const title = document.getElementById('noteTitle').value;
-    const content = document.getElementById('noteContent').value;
+    const color = getRandomColor();
+    const { x, y } = getUniqueCoords();
 
-    if (!content.trim()) {
-        alert("Please write something for your note!");
-        return;
-    }
+    addNote(title, content, color, x, y);
+
+    document.getElementById('noteTitle').value = '';
+    document.getElementById('noteContent').value = '';
+    modal.style.display = 'none';
+});
 
     const color = getRandomColor();
     const { x, y } = getUniqueCoords();
@@ -176,4 +231,4 @@ function getRandomColor() {
 
 // ----------------------------------------------------------------------------------------- RUN
 
-renderNotes();
+loadNotesFromFirestore();
