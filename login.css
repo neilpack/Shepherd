@@ -37,3 +37,35 @@
   border-color: #4d95b4;
   outline: none;
 }
+
+.input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 300px;
+      height: 40px;
+      border-radius: 1em;
+      border: 2px solid #ccc;
+      transition: border-color 0.3s ease;
+      padding-left: 15px;
+    }
+
+    .input-group input:focus {
+      border-color: #4d95b4;
+      outline: none;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none; /* hidden by default */
+    }
+
+    .error-border {
+      border-color: red !important;
+    }
