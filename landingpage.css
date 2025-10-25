@@ -31,10 +31,11 @@ html, body {
 }
 
 .logo img {
-    width: 200px;   /* larger logo */
+    width: 175px;   /* larger logo */
     max-width: 25vw;
     height: auto;
     margin-bottom: 0.5em;
+    border-radius: 50%;
 }
 
 .logo h2 {
