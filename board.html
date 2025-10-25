@@ -6,75 +6,64 @@
     <title>Shepherd</title>
     <link rel="stylesheet" href="board.css">
     <script type="module" src="board.js" defer></script>
-     <meta name="description" content="A simple LDS ward service board to connect members and coordinate ministering.">
-     <meta name="author" content="MinsterMe">
+    <meta name="description" content="A simple LDS ward service board to connect members and coordinate ministering.">
+    <meta name="author" content="MinisterMe">
 </head>
 <body>
     <header>
         <nav>
-            <ul>
-                <li><div class="nav-wrapper"><a href="board.html" >Board</a></div></li>
-                <li><div class="nav-wrapper"><a href="calendar.html" >Calendar</a></div></li>
-                <li><div class="nav-wrapper"><a href="map.html" >Map</a></div></li>
+            <ul class="nav-left">
+                <li><div class="nav-wrapper"><a href="board.html">Board</a></div></li>
+                <li><div class="nav-wrapper"><a href="calendar.html">Calendar</a></div></li>
+                <li><div class="nav-wrapper"><a href="map.html">Map</a></div></li>
             </ul>
+            <div class="nav-right">
+                Signed in as: <span id="user-email">Guest</span>
+                <button id="logout-btn">Sign Out</button>
+            </div>
         </nav>
     </header>
-<main>
-    <!-- THE BOARD-->
-    <div id="board">
-    </div>
 
-    <!-- ADD NOTE MODAL -->
-    <div id="add-button-container">
-        <button id="openModalBtn">+</button>
-    </div>
-    <div class="modal-overlay" id="myModal">
-    <div class="modal-content">
-        <span class="close-btn" id="closeAddModalBtn">&times;</span>
-        <h2>What do you need?</h2>
-        
-        <input type="text" id="noteTitle" placeholder="Subject" style="width: 80%; margin-bottom: 10px; padding: 5px;">
-        <textarea id="noteContent" placeholder="What do you need? " style="width: 80%; height: 80px; padding: 5px;"></textarea>
-    
-        <button id="submitNoteBtn" style="margin-top: 15px; padding: 10px 20px; background-color: #ffd6a5; border: none; border-radius: 5px; cursor: pointer;">
-        Add Note
-        </button>
-    </div>
-    </div>
+    <main>
+        <!-- THE BOARD -->
+        <div id="board"></div>
 
-    <!-- REMOVE NOTE MODAL -->
-    <div class="modal-overlay" id="removeModal">
-    <div class="modal-content">
-        <span class="close-btn" id="closeRemoveModalBtn">&times;</span>
-        <h2>Remove Note?</h2>
-    
-        <button id="removeNoteBtn" style="margin-top: 15px; padding: 10px 20px; background-color: #ffd6a5; border: none; border-radius: 5px; cursor: pointer;">
-        Confirm
-        </button>
-    </div>
-    </div>
-</main>
-<footer>
-    <div>
-        <p>Shepherd &copy; 2025 - MinisterMe</p>
-        <p><a href="#" style="color: white;">Report A Problem</a></p>
-        <p><a href="#" style="color: white;">Contact Info</a></p>
-        <p>Socials</p>
-    </div>
-    <div id="social-links">
-        <a href="https://www.facebook.com/"  class="social-link">
-            <img id="face" href="https://www.facebook.com"src="images/Facebook_Logo_2023.png" alt="Facebook Logo"  target="_blank">
-            <span></span>
-        </a>
-        <a href="https://www.instagram.com" target="_blank" class="social-link">
-            <img id="insta" href="https://www.instagram.com" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"  target="_blank">
-            <span></span>
-        </a>
-        <a href="https://www.x.com" target="_blank" class="social-link">
-            <img id="x" href="https://www.x.com" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"  target="_blank">
-            <span></span>
-        </a>
-    </div>
-  </footer>
+        <!-- ADD NOTE MODAL -->
+        <div id="add-button-container">
+            <button id="openModalBtn">+</button>
+        </div>
+        <div class="modal-overlay" id="myModal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeAddModalBtn">&times;</span>
+                <h2>What do you need?</h2>
+                <input type="text" id="noteTitle" placeholder="Subject">
+                <textarea id="noteContent" placeholder="What do you need?"></textarea>
+                <button id="submitNoteBtn">Add Note</button>
+            </div>
+        </div>
+
+        <!-- REMOVE NOTE MODAL -->
+        <div class="modal-overlay" id="removeModal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeRemoveModalBtn">&times;</span>
+                <h2>Remove Note?</h2>
+                <button id="removeNoteBtn">Confirm</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <p>Shepherd &copy; 2025 - MinisterMe</p>
+            <p><a href="#">Report A Problem</a></p>
+            <p><a href="#">Contact Info</a></p>
+            <p>Socials</p>
+        </div>
+        <div id="social-links">
+            <a href="https://www.facebook.com" target="_blank"><img src="images/Facebook_Logo_2023.png" alt="Facebook Logo"></a>
+            <a href="https://www.instagram.com" target="_blank"><img src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"></a>
+            <a href="https://www.x.com" target="_blank"><img src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"></a>
+        </div>
+    </footer>
 </body>
 </html>

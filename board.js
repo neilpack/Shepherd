@@ -1,3 +1,34 @@
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { app } from "./firebase.js"; // make sure path is correct
+
+const auth = getAuth(app);
+
+// Add elements for user display
+const userEmailSpan = document.getElementById("user-email");
+const logoutBtn = document.getElementById("logout-btn");
+
+// Show signed-in email or redirect if not signed in
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        userEmailSpan.textContent = user.email;
+    } else {
+        userEmailSpan.textContent = "Guest";
+        // Optional: redirect to login if you don’t want guests
+        // window.location.href = "login.html";
+    }
+});
+
+// Logout button functionality
+logoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            window.location.href = "login.html";
+        })
+        .catch((error) => {
+            console.error("Sign out error:", error);
+        });
+});
+
 import { db } from "./board-firebase.js";
 import { doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
