@@ -1,0 +1,44 @@
+.video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.sign {
+    margin: 300px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center
+}
+
+#form {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+#form input {
+    width: 300px;
+    height: 40px;
+    border-radius: 1em;
+    border: 2px solid #ccc;
+    transition: border-color 0.3s ease;
+    padding-left: 15px;
+}
+
+#form input:focus {
+  border-color: #4d95b4;
+  outline: none;
+}
+
+#signin {
+    text-align: center;
+    width: 300px;
+}
