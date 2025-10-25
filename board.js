@@ -10,50 +10,84 @@ const notes = [
 
 const usedCoords = new Set();
 
-// --------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------- RENDER NOTES
 function renderNotes() {
     const board = document.getElementById("board");
     board.innerHTML = ""; // clear existing notes
     
-    notes.forEach(note => {
-    const section = document.createElement("section");
+    notes.forEach((note, index) => {
+        const section = document.createElement("section");
 
-    //Info in the sticky note
-    section.className = "note";
-    section.style.backgroundColor = note.color;
-    section.textContent = `${note.title}: ${note.content}`;
+        //Info in the sticky note
+        section.className = "note";
+        section.style.backgroundColor = note.color;
+        section.textContent = `${note.title}: ${note.content}`;
 
-    // Position on grid
-    section.style.gridColumnStart = note.x;
-    section.style.gridRowStart = note.y;
+        // Position on grid
+        section.style.gridColumnStart = note.x;
+        section.style.gridRowStart = note.y;
 
-    board.appendChild(section);
-});
+        //adds clicking ability to each note
+        section.addEventListener("click", () => {
+            noteToRemoveIndex = index; // save which note
+            removeModal.style.display = "flex"; // open modal
+        });
+
+        board.appendChild(section);
+    });
 }
 
-// -------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------- MODALS
 
 const modal = document.getElementById('myModal');
 const openBtn = document.getElementById('openModalBtn');
-const closeBtn = document.getElementById('closeModalBtn');
+const closeAddBtn = document.getElementById('closeAddModalBtn');
 const submitNoteBtn = document.getElementById('submitNoteBtn');
 
 openBtn.addEventListener('click', () => {
   modal.style.display = 'flex';
 });
 
-closeBtn.addEventListener('click', () => {
+closeAddBtn.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-// Close modal if click outside content
+//if clicked out of content
 window.addEventListener('click', (e) => {
   if (e.target === modal) {
     modal.style.display = 'none';
   }
 });
 
-// ---------------------------------------------------------------------------------
+// REMOVE NOTE MODAL
+const removeModal = document.getElementById('removeModal');
+const closeRemoveBtn = document.getElementById('closeRemoveModalBtn');
+const removeNoteBtn = document.getElementById('removeNoteBtn');
+
+let noteToRemoveIndex = null;
+
+closeRemoveBtn.addEventListener('click', () => {
+  removeModal.style.display = 'none';
+});
+
+//if click out of content
+window.addEventListener('click', (e) => {
+  if (e.target === removeModal) removeModal.style.display = 'none';
+});
+
+// Remove note
+removeNoteBtn.addEventListener('click', () => {
+  if (noteToRemoveIndex !== null) {
+    const note = notes[noteToRemoveIndex];
+    usedCoords.delete(`${note.x},${note.y}`);
+    notes.splice(noteToRemoveIndex, 1);
+    noteToRemoveIndex = null;
+    removeModal.style.display = 'none'; // hide REMOVE modal
+    renderNotes();
+  }
+});
+
+// --------------------------------------------------------------------------------- ADDING NOTE FUNCTIONS
 
 // Adds note into array
 function addNote(title, content, color, x, y) {
@@ -107,7 +141,7 @@ submitNoteBtn.addEventListener('click', () => {
     modal.style.display = 'none'; // Hide modal
 });
 
-// -----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------- HELPER FUNCTIONS
 function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -117,6 +151,6 @@ function getRandomColor() {
     return colorValues[randomIndex];
 }
 
-// -----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------- RUN
 
 renderNotes();
