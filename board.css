@@ -1,0 +1,48 @@
+:root {
+
+}
+
+/* Global */
+
+
+
+
+/* Header */
+header {
+    background-color: black;
+    font-weight: bold;
+}
+header ul {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    padding: 40px;
+}
+header ul li {
+    list-style: none;
+    font-size: 30px;
+}
+header a {
+    text-decoration: none;
+    color:white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Footer */
+footer {
+    margin-top: 100px; /*Please Remove this later!*/
+    background-color: black;
+    font-weight: bold;
+    color: white;
+    padding: 50px;
+}
+
+/* iPhone Display */
+@media (max-width: 800px) {
+    /* HEADER */
+    header ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
