@@ -1,199 +1,151 @@
-:root {
-    --primary-color: #53599A;
-    --secondary-color: #6D9DC5;
-    --accent-color1: #068D9D;
-    --accent-color2: #80DED9;
-    --passive-color: #f5f7fa;
-}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-/* Global */
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--passive-color);
-    height: 100%;
-    color: #333;
-}
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC6ZBvAd5WE2dQ_iVdfVuF_uYq546B8QgI",
+  authDomain: "iminister-map.firebaseapp.com",
+  projectId: "iminister-map",
+  storageBucket: "iminister-map.firebasestorage.app",
+  messagingSenderId: "986772471255",
+  appId: "1:986772471255:web:a3e3d5ec49f61a27815f92",
+  measurementId: "G-TXWMLGM1G7"
+};
 
-/* Header */
-header {
-    background-color: var(--primary-color);
-    font-weight: bold;
-}
-header ul {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    padding: 30px;
-    margin: 0;
-}
-header ul li {
-    list-style: none;
-    font-size: 24px;
-}
-header a {
-    text-decoration: none;
-    color: white;
-    transition: color 0.3s;
-}
-header ul li a:hover,
-header ul li a.active {
-    color: var(--accent-color2);
-}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-/* Footer */
-footer {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 40px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-footer a {
-    color: white;
-    text-decoration: none;
-    transition: text-decoration 0.3s;
-}
-footer a:hover {
-    text-decoration: underline;
-}
-footer img {
-    max-height: 36px;
-    max-width: 36px;
-    vertical-align: middle;
-    margin-left: 5px;
-}
+let map, geocoder;
+let addPinMode = false;
+let tempLatLng = null;
+let markerPreview = null;
 
-/* Map container */
-#map {
-    width: 90%;
-    height: calc(100vh - 200px);
-    margin: 20px auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
+const addPinBtn = document.getElementById("addPinBtn");
+const messageDiv = document.getElementById("message");
+const pinModal = document.getElementById("pinModal");
+const pinForm = document.getElementById("pinForm");
 
-/* Floating Add Pin Button */
-#addPinBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 40px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--accent-color1);
-    color: white;
-    font-size: 32px;
-    cursor: pointer;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    transition: transform 0.2s, background-color 0.2s;
-    z-index: 9999;
-}
-#addPinBtn:hover {
-    background-color: var(--accent-color2);
-    transform: scale(1.1);
-}
+// Map initialization
+window.initMap = async function() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 13,
+    center: { lat: 43.816, lng: -111.784 }
+  });
 
-/* Message popup */
-#message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0,0,0,0.85);
-    color: #fff;
-    padding: 16px 28px;
-    border-radius: 12px;
-    font-size: 18px;
-    text-align: center;
-    z-index: 10000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s;
-}
+  geocoder = new google.maps.Geocoder();
 
-/* Pin Modal */
-#pinModal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.45);
-    z-index: 10001;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-#pinForm {
-    background-color: white;
-    padding: 30px 35px;
-    border-radius: 15px;
-    width: 320px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transition: transform 0.3s;
-}
-#pinForm:hover {
-    transform: scale(1.02);
-}
-#pinForm h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
-    color: var(--primary-color);
-}
-#pinForm label {
-    display: block;
-    margin-top: 12px;
-    font-weight: 600;
-    font-size: 14px;
-}
-#pinForm input, #pinForm button {
-    width: 100%;
-    margin-top: 6px;
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-}
-#pinForm input:focus {
-    outline: none;
-    border-color: var(--accent-color1);
-    box-shadow: 0 0 5px var(--accent-color1);
-}
-#pinForm button {
-    margin-top: 18px;
-    background-color: var(--accent-color1);
-    color: white;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: background-color 0.2s, transform 0.2s;
-}
-#pinForm button:hover {
-    background-color: var(--accent-color2);
-    transform: scale(1.05);
-}
+  // Load pins from Firestore
+  try {
+    const snapshot = await getDocs(collection(db, "pins"));
+    snapshot.forEach(doc => addMarker(doc.data()));
+  } catch (err) {
+    console.error(err);
+    showMessage("Error loading pins", 3000);
+  }
 
-/* Responsive */
-@media (max-width: 900px) {
-    header ul {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-        padding: 20px;
+  addPinBtn.addEventListener("click", () => {
+    addPinMode = true;
+    pinModal.style.display = "flex";
+    showMessage("Click map or enter address to add pin", 3000);
+  });
+
+  map.addListener("click", event => {
+    if (!addPinMode) return;
+    tempLatLng = event.latLng;
+    previewPin();
+  });
+
+  pinForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = document.getElementById("pinName").value;
+    const needed = document.getElementById("pinNeeded").value;
+    const date = document.getElementById("pinDate").value;
+    const time = document.getElementById("pinTime").value;
+    const address = document.getElementById("pinAddress").value;
+
+    if (address && !tempLatLng) await geocodeAddress(address);
+    if (!name || !tempLatLng) return alert("Enter a valid location.");
+
+    const newPin = {
+      name,
+      needed,
+      date,
+      time,
+      lat: tempLatLng.lat(),
+      lng: tempLatLng.lng()
+    };
+
+    try {
+      await addDoc(collection(db, "pins"), newPin);
+      addMarker(newPin);
+      showMessage("Pin added!", 2000);
+    } catch (err) {
+      console.error(err);
+      showMessage("Error adding pin", 2500);
     }
-    #map {
-        width: 95%;
-        height: calc(100vh - 220px);
-    }
-    #pinForm {
-        width: 90%;
-    }
+    resetPin();
+  });
+
+  pinModal.addEventListener("click", e => {
+    if (e.target === pinModal) resetPin();
+  });
+};
+
+function showMessage(text, duration = 2000) {
+  messageDiv.textContent = text;
+  messageDiv.style.opacity = 1;
+  setTimeout(() => messageDiv.style.opacity = 0, duration);
+}
+
+async function geocodeAddress(address) {
+  return new Promise(resolve => {
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        tempLatLng = results[0].geometry.location;
+        map.setCenter(tempLatLng);
+        previewPin();
+        resolve(tempLatLng);
+      } else {
+        showMessage("Address not found", 2500);
+        resolve(null);
+      }
+    });
+  });
+}
+
+function addMarker(pin) {
+  const marker = new google.maps.Marker({
+    position: { lat: pin.lat, lng: pin.lng },
+    map,
+    title: pin.name,
+    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+  });
+
+  const infoWindow = new google.maps.InfoWindow({
+    content: `<div>
+      <strong>${pin.name}</strong><br>
+      Needed: ${pin.needed}<br>
+      Date: ${pin.date}<br>
+      Time: ${pin.time}
+    </div>`
+  });
+
+  marker.addListener("click", () => infoWindow.open(map, marker));
+}
+
+function previewPin() {
+  if (markerPreview) markerPreview.setMap(null);
+  markerPreview = new google.maps.Marker({
+    position: tempLatLng,
+    map,
+    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+  });
+}
+
+function resetPin() {
+  addPinMode = false;
+  pinModal.style.display = "none";
+  pinForm.reset();
+  tempLatLng = null;
+  if (markerPreview) markerPreview.setMap(null);
 }
