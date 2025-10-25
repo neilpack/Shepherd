@@ -27,17 +27,6 @@ function renderNotes() {
     section.style.gridColumnStart = note.x;
     section.style.gridRowStart = note.y;
 
-    // adds the click to remove
-    section.addEventListener("click", () => {
-      const confirmDelete = confirm("Remove sticky note?");
-      if (confirmDelete) {
-        notes.splice(index, 1); // Remove from notes array
-        usedCoords.delete(`${note.x},${note.y}`); // Remove coordinates from usedCoords
-        renderNotes();
-        console.log(notes);
-      }
-    });
-
     board.appendChild(section);
 });
 }
