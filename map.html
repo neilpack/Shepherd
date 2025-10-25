@@ -56,8 +56,26 @@
   </footer>
 
   <!-- Firebase + Map JS -->
-  <script type="module" src="map.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
+<!-- Firebase + Map JS -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18" async defer></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+  import { initMap } from "./map.js";
+
+  // Wait until Google Maps is ready, then call initMap
+  window.addEventListener("load", () => {
+    if (typeof google !== "undefined") initMap();
+    else {
+      const check = setInterval(() => {
+        if (typeof google !== "undefined") {
+          clearInterval(check);
+          initMap();
+        }
+      }, 200);
+    }
+  });
+</script>
 
 </body>
 </html>
