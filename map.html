@@ -1,75 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shepherd Map</title>
-  <link rel="stylesheet" href="map.css">
-</head>
-<body>
-
-  <!-- Header -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="board.html">Board</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="map.html" class="active">Map</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Main content -->
-  <main id="main-content">
-    <div id="map"></div>
-    <button id="addPinBtn">+</button>
-    <div id="message"></div>
-
-    <!-- Modal for adding pin -->
-    <div id="pinModal">
-      <form id="pinForm">
-        <h2>Add New Pin</h2>
-        <label for="pinName">Name</label>
-        <input type="text" id="pinName" required>
-
-        <label for="pinAddress">Address (optional)</label>
-        <input type="text" id="pinAddress" placeholder="Enter an address">
-
-        <label for="pinNeeded">What's Needed?</label>
-        <input type="text" id="pinNeeded">
-
-        <label for="pinDate">Date</label>
-        <input type="date" id="pinDate">
-
-        <label for="pinTime">Time</label>
-        <input type="time" id="pinTime">
-
-        <button type="submit">Add Pin</button>
-      </form>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div>
-      <p>Shepherd &copy; 2025 - MinisterMe</p>
-      <p><a href="#">Report A Problem</a></p>
-      <p><a href="#">Contact Info</a></p>
-      <p>Socials</p>
-    </div>
-    <div>
-      <a href="#">Facebook <img src="images/Facebook_Logo_2023.png" alt="Facebook Logo"></a>
-      <a href="#">Instagram <img src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"></a>
-      <a href="#">X <img src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"></a>
-    </div>
-  </footer>
-
-  <!-- Firebase + Map JS -->
-  <script type="module" src="map.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADtj-pf2vXPtVbsito5U5AFwmKhJnWX18&callback=initMap" async defer></script>
-
-</body>
-</html>" css: ":root {
+:root {
     --primary-color: #53599A;
     --secondary-color: #6D9DC5;
     --accent-color1: #068D9D;
@@ -187,7 +116,6 @@ main#main-content {
     z-index: 10001;
     justify-content: center;
     align-items: center;
-    display: flex;
 }
 
 #pinForm {
@@ -208,13 +136,6 @@ main#main-content {
     margin-bottom: 20px;
     font-size: 22px;
     color: var(--primary-color);
-}
-
-#pinForm label {
-    display: block;
-    margin-top: 12px;
-    font-weight: 600;
-    font-size: 14px;
 }
 
 #pinForm input, #pinForm button {
@@ -291,4 +212,4 @@ footer img {
     #pinForm {
         width: 90%;
     }
-}"
+}
