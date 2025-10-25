@@ -16,7 +16,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Array to hold notes loaded from Firestore
-let notes = [];
+// let notes = [];
 
 
 
