@@ -1,3 +1,26 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+// Firebase Firestone sonfigurat
+const firebaseConfig = {
+  apiKey: "AIzaSyC6ZBvAd5WE2dQ_iVdfVuF_uYq546B8QgI",
+  authDomain: "iminister-map.firebaseapp.com",
+  projectId: "iminister-map",
+  storageBucket: "iminister-map.firebasestorage.app",
+  messagingSenderId: "986772471255",
+  appId: "1:986772471255:web:a3e3d5ec49f61a27815f92",
+  measurementId: "G-TXWMLGM1G7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Array to hold notes loaded from Firestore
+let notes = [];
+
+
+
+
 const colors = {
   one: "#fef3bd",
   two: "#ffd6a5"

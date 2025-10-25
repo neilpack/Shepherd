@@ -54,9 +54,10 @@ header ul li {
 header a {
     text-decoration: none;
     color: white;
-    padding: 1em 2em;
+    padding: .5em 1em;
     display: inline-block;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-size: 1.5em;
 }
 
 header a:hover {
