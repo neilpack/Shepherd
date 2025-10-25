@@ -44,6 +44,9 @@ let notes = [
 ];
 
 const usedCoords = new Set();
+notes.forEach(note => {
+    usedCoords.add(`${note.x},${note.y}`);
+});
 
 // -------------------------------------------------------------------------------- FIREBASE
 // Sync Firestore to local notes
