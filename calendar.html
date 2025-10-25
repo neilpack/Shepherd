@@ -23,6 +23,9 @@ body {
     min-height: 100vh;
 }
 
+
+
+/* Header section and nav */
 header {
     background-color: var(--primary-color);
     font-weight: bold;
@@ -32,7 +35,7 @@ header ul {
     display: flex;
     justify-content: center;
     gap: 2em;          
-    padding: 40px 0;
+    padding: 30px 0;
     margin: 0;
 }
 
@@ -62,6 +65,9 @@ header a:hover {
     box-shadow: 2px 4px 8px rgba(0,0,0,0.2);  
 }
 
+
+
+
 /* Main Calendar Container */
 #main-content { 
   flex: 1; 
@@ -69,6 +75,9 @@ header a:hover {
   padding: 20px; 
   background-color: white; 
 }
+
+
+
 
 /* Calendar Controls Box */
 #controls-box {
@@ -85,6 +94,9 @@ header a:hover {
   gap: 10px; 
   align-items: center; 
 }
+
+
+
 
 /* Calendar */
 #calendar {
@@ -129,6 +141,7 @@ h3 { text-align: center;
 }
 
 
+
 /* availability count at bottom */
 .avail-count {
     font-size: 11px;
@@ -142,6 +155,8 @@ h3 { text-align: center;
     font-weight: bold;
 }
 
+
+
 /* Sidebar */
 #sidebar {
     flex:1;
@@ -151,7 +166,11 @@ h3 { text-align: center;
     display:none;
     overflow-y:auto;
 }
-#sidebar-header { display:flex; justify-content: space-between; align-items: center; }
+#sidebar-header { 
+  display:flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
 #close-sidebar {
     background: #ff5c5c;
     color: white;
@@ -165,11 +184,24 @@ h3 { text-align: center;
     line-height: 28px;
     text-align: center;
 }
-#close-sidebar:hover { background: #ff0000; }
-textarea { width:100%; height:150px; margin-top:10px; font-size:1em; }
-button.save-btn, button.save-close-btn { margin-top:10px; padding:5px 10px; cursor:pointer; font-size:1em; }
+#close-sidebar:hover { 
+  background: #ff0000; 
+}
+textarea { 
+  width:100%; 
+  height:150px; 
+  margin-top:10px; 
+  font-size:1em; 
+}
+button.save-btn, button.save-close-btn { 
+  margin-top:10px; 
+  padding:5px 10px; 
+  cursor:pointer; 
+  font-size:1em; 
 
-/* remove buttons styling */
+}
+
+
 .remove-availability-btn {
     background: #ff5c5c;
     color: white;
@@ -180,11 +212,16 @@ button.save-btn, button.save-close-btn { margin-top:10px; padding:5px 10px; curs
     font-size: 0.85em;
     margin-left: 8px;
 }
-.remove-availability-btn:hover { background: #ff0000; }
+.remove-availability-btn:hover { 
+  background: #ff0000; 
+}
+
+
 
 /* Availability list item */
 .avail-list-item {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
     padding: 6px 8px;
@@ -194,32 +231,66 @@ button.save-btn, button.save-close-btn { margin-top:10px; padding:5px 10px; curs
     border: 1px solid #e0e0e0;
 }
 
+
+
 /* Footer */
 footer {
     background-color: var(--primary-color);
     font-weight: bold;
     color: white;
-    padding: 50px;
+    padding: 20px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-#face, #x, #insta { max-height: 40px; max-width: 40px; margin-left: 10px; }
-@media (max-width: 800px) {
-    header ul { flex-direction: column; gap: 10px; text-align: center; }
+#face, #x, #insta { max-height: 40px; 
+  max-width: 40px; 
+  margin-left: 10px; 
 }
 
+#social-links {
+    display: flex;
+    gap: 2em; 
+    margin-top: 10px; 
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.social-link img {
+    max-width: 40px;
+    max-height: 40px;
+    margin-bottom: 0.3em; 
+}
+
+
+@media (max-width: 800px) {
+    header ul { flex-direction: column; 
+      gap: 10px; 
+      text-align: center; 
+    }
+}
+
+
+/* Availability section and containers */
 #availability-button-container {
     position: fixed;
-    bottom: 270px;
-    right: 170px;
+    bottom: 210px;
+    left: 325px;
 }
 
 #availabilityBtn {
     background-color: var(--accent-color1);
     color: white;
     border: none;
-    border-radius: 50%;
+    border-radius: 1em;
     width: 400px;
     height: 60px;
     font-size: 18px;
@@ -227,7 +298,11 @@ footer {
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
-#availabilityBtn:hover { transform: scale(1.02); }
+#availabilityBtn:hover { 
+  transform: scale(1.02); 
+}
+
+
 
 /* Modal styles */
 #availabilityModal {
@@ -301,18 +376,28 @@ footer {
 
 <!-- Footer -->
 <footer>
-    <div>
-        <p>Shepherd &copy; 2025 - MinisterMe</p>
-        <p><a href="#" style="color: white;">Report A Problem</a></p>
-        <p><a href="#" style="color: white;">Contact Info</a></p>
-        <p>Socials</p>
-    </div>
-    <div>
-        <a href="#" style="color:white; text-decoration:none;">Facebook <img id="face" src="images/Facebook_Logo_2023.png" alt="Facebook Logo"></a>
-        <a href="#" style="color:white; text-decoration:none;">Instagram <img id="insta" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo"></a>
-        <a href="#" style="color:white; text-decoration:none;">X <img id="x" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo"></a>
-    </div>
+  <div>
+      <p>Shepherd &copy; 2025 - MinisterMe</p>
+      <p><a href="#" style="color: white;">Report A Problem</a></p>
+      <p><a href="#" style="color: white;">Contact Info</a></p>
+      <p>Socials</p>
+  </div>
+  <div id="social-links">
+      <a href="https://www.facebook.com/" target="_blank" class="social-link">
+          <img id="face" src="images/Facebook_Logo_2023.png" alt="Facebook Logo">
+          <span>Facebook</span>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" class="social-link">
+          <img id="insta" src="images/instagram-logo-instagram-icon-transparent-free-png.webp" alt="Instagram Logo">
+          <span>Instagram</span>
+      </a>
+      <a href="https://www.x.com" target="_blank" class="social-link">
+          <img id="x" src="images/pngimg.com - x_logo_PNG17.png" alt="X logo">
+          <span>X</span>
+      </a>
+  </div>
 </footer>
+
 
 <!-- Availability Button -->
 <div id="availability-button-container">
