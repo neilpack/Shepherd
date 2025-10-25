@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Firebase config
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC6ZBvAd5WE2dQ_iVdfVuF_uYq546B8QgI",
   authDomain: "iminister-map.firebaseapp.com",
@@ -25,6 +25,7 @@ const messageDiv = document.getElementById("message");
 const pinModal = document.getElementById("pinModal");
 const pinForm = document.getElementById("pinForm");
 
+// Map initialization
 window.initMap = async function() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
@@ -33,12 +34,12 @@ window.initMap = async function() {
 
   geocoder = new google.maps.Geocoder();
 
-  // Load existing pins
+  // Load pins from Firestore
   try {
     const snapshot = await getDocs(collection(db, "pins"));
     snapshot.forEach(doc => addMarker(doc.data()));
-  } catch (error) {
-    console.error("Error loading pins:", error);
+  } catch (err) {
+    console.error(err);
     showMessage("Error loading pins", 3000);
   }
 
@@ -48,13 +49,13 @@ window.initMap = async function() {
     showMessage("Click map or enter address to add pin", 3000);
   });
 
-  map.addListener("click", (event) => {
+  map.addListener("click", event => {
     if (!addPinMode) return;
     tempLatLng = event.latLng;
     previewPin();
   });
 
-  pinForm.addEventListener("submit", async (e) => {
+  pinForm.addEventListener("submit", async e => {
     e.preventDefault();
     const name = document.getElementById("pinName").value;
     const needed = document.getElementById("pinNeeded").value;
@@ -65,24 +66,32 @@ window.initMap = async function() {
     if (address && !tempLatLng) await geocodeAddress(address);
     if (!name || !tempLatLng) return alert("Enter a valid location.");
 
-    const newPin = { name, needed, date, time, lat: tempLatLng.lat(), lng: tempLatLng.lng() };
+    const newPin = {
+      name,
+      needed,
+      date,
+      time,
+      lat: tempLatLng.lat(),
+      lng: tempLatLng.lng()
+    };
+
     try {
       await addDoc(collection(db, "pins"), newPin);
       addMarker(newPin);
       showMessage("Pin added!", 2000);
     } catch (err) {
       console.error(err);
-      showMessage("Error adding pin", 2000);
+      showMessage("Error adding pin", 2500);
     }
     resetPin();
   });
 
-  pinModal.addEventListener("click", (e) => {
+  pinModal.addEventListener("click", e => {
     if (e.target === pinModal) resetPin();
   });
 };
 
-function showMessage(text, duration=2000) {
+function showMessage(text, duration = 2000) {
   messageDiv.textContent = text;
   messageDiv.style.opacity = 1;
   setTimeout(() => messageDiv.style.opacity = 0, duration);
@@ -111,7 +120,8 @@ function addMarker(pin) {
     title: pin.name,
     icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
   });
-  const info = new google.maps.InfoWindow({
+
+  const infoWindow = new google.maps.InfoWindow({
     content: `<div>
       <strong>${pin.name}</strong><br>
       Needed: ${pin.needed}<br>
@@ -119,12 +129,17 @@ function addMarker(pin) {
       Time: ${pin.time}
     </div>`
   });
-  marker.addListener("click", () => info.open(map, marker));
+
+  marker.addListener("click", () => infoWindow.open(map, marker));
 }
 
 function previewPin() {
   if (markerPreview) markerPreview.setMap(null);
-  markerPreview = new google.maps.Marker({ position: tempLatLng, map, icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" });
+  markerPreview = new google.maps.Marker({
+    position: tempLatLng,
+    map,
+    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+  });
 }
 
 function resetPin() {
