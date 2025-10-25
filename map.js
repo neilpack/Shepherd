@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+js: import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 // Firebase config
@@ -26,7 +26,7 @@ const pinModal = document.getElementById("pinModal");
 const pinForm = document.getElementById("pinForm");
 
 // Initialize Map
-export async function initMap() {
+window.initMap = async function() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: { lat: 43.816, lng: -111.784 }
