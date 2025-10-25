@@ -69,7 +69,7 @@ main#main-content {
 /* Add pin button */
 #addPinBtn {
     position: fixed;
-    bottom: 30px;
+    bottom: 100px;
     right: 40px;
     width: 60px;
     height: 60px;
